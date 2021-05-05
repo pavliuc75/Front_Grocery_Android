@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView_welcome"
+        android:id="@+id/textView_list_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -41,7 +41,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_welcome" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_list_id" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -51,12 +51,14 @@
         app:layout_constraintGuide_begin="57dp" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editText_list_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:digits="0123456789"
+        android:inputType="numberDecimal"
         android:hint="List ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +74,7 @@
         android:text="Go to list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_list_id" />
 
     <TextView
         android:id="@+id/textView2"

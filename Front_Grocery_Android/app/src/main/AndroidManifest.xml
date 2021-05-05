@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/logo_small"
         android:supportsRtl="true"
         android:theme="@style/Theme.Front_Grocery_Android">
-        <activity android:name=".ListActivity"></activity>
+        <activity android:name=".AddItemActivity"></activity>
+        <activity android:name=".ListActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
