@@ -4,16 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddItemActivity">
+    tools:context=".ListSettingsActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/add_item_toolbar"
+        android:id="@+id/settings_toolbar"
         style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Add Item" />
-
+        app:title="Settings" />
 </androidx.constraintlayout.widget.ConstraintLayout>
