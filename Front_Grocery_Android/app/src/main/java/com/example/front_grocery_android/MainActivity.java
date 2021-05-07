@@ -10,12 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.front_grocery_android.Repository.CachedList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;
     private Button buttonGenerate;
     private EditText editTextListId;
+    private CachedList cachedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         buttonGoToList = findViewById(R.id.button_go_to_list);
         buttonGenerate = findViewById(R.id.button_generate);
         editTextListId = findViewById(R.id.editText_list_id);
+        cachedList = CachedList.getInstance();
 
         //help button
         imageButtonHelp.setOnClickListener(v -> {
@@ -44,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 editTextListId.setError("The value should be between 1000 and 9999");
             } else {
                 Intent toList = new Intent(this, ListActivity.class);
-                toList.putExtra("listId", editTextListId.getText().toString());
+                //toList.putExtra("listId", editTextListId.getText().toString());
+                cachedList.setCachedList(Integer.parseInt(editTextListId.getText().toString()));
                 startActivity(toList);
             }
         });

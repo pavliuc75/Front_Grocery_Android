@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.front_grocery_android.Repository.CachedList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListActivity extends AppCompatActivity {
@@ -15,6 +16,7 @@ public class ListActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private ImageButton imageButtonSettings;
     private ImageButton imageButtonSwitch;
+    private CachedList cachedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +27,12 @@ public class ListActivity extends AppCompatActivity {
         fabAdd = findViewById(R.id.fab_add);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
         imageButtonSwitch = findViewById(R.id.imageButtonSwitch);
+        cachedList = CachedList.getInstance();
 
         //extract params
-        Bundle bundle = getIntent().getExtras();
-        String listId = bundle.getString("listId");
+        //Bundle bundle = getIntent().getExtras();
+        //String listId = bundle.getString("listId");
+        String listId = String.valueOf(cachedList.getCachedList());
         textViewListId.setText(listId);
 
         //fab
