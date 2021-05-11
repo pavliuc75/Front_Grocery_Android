@@ -1,12 +1,17 @@
-package com.example.front_grocery_android;
+package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.Repository.CachedList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -16,6 +21,7 @@ public class ListActivity extends AppCompatActivity {
     private FloatingActionButton fabAdd;
     private ImageButton imageButtonSettings;
     private ImageButton imageButtonSwitch;
+    private ImageButton imageButtonCopy;
     private CachedList cachedList;
 
     @Override
@@ -27,11 +33,10 @@ public class ListActivity extends AppCompatActivity {
         fabAdd = findViewById(R.id.fab_add);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
         imageButtonSwitch = findViewById(R.id.imageButtonSwitch);
+        imageButtonCopy = findViewById(R.id.image_button_copy);
         cachedList = CachedList.getInstance();
 
-        //extract params
-        //Bundle bundle = getIntent().getExtras();
-        //String listId = bundle.getString("listId");
+        //set list id
         String listId = String.valueOf(cachedList.getCachedList());
         textViewListId.setText(listId);
 
@@ -51,6 +56,14 @@ public class ListActivity extends AppCompatActivity {
         imageButtonSwitch.setOnClickListener(v -> {
             Intent toMain = new Intent(this, MainActivity.class);
             startActivity(toMain);
+        });
+
+        //copyId
+        imageButtonCopy.setOnClickListener(v -> {
+            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clip = ClipData.newPlainText("Shopply list ID", String.valueOf(cachedList.getCachedList()));
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(this, "List ID copied to clipboard", Toast.LENGTH_SHORT).show();
         });
     }
 }

@@ -1,9 +1,11 @@
-package com.example.front_grocery_android;
+package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+
+import com.example.front_grocery_android.R;
 
 public class AddItemActivity extends AppCompatActivity {
 

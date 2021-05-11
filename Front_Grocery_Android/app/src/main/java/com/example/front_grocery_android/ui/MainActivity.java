@@ -1,4 +1,4 @@
-package com.example.front_grocery_android;
+package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.Repository.CachedList;
 
 public class MainActivity extends AppCompatActivity {

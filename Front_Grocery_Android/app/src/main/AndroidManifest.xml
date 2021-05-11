@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Front_Grocery_Android">
         <activity
-            android:name=".ListSettingsActivity"
-            android:parentActivityName=".ListActivity" />
+            android:name=".ui.ListSettingsActivity"
+            android:parentActivityName=".ui.ListActivity" />
         <activity
-            android:name=".AddItemActivity"
-            android:parentActivityName=".ListActivity" />
-        <activity android:name=".ListActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".ui.AddItemActivity"
+            android:parentActivityName=".ui.ListActivity" />
+        <activity android:name=".ui.ListActivity" />
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
