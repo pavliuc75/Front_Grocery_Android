@@ -1,5 +1,6 @@
 package com.example.front_grocery_android.ui;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
@@ -7,7 +8,10 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ public class ListActivity extends AppCompatActivity {
     private ImageButton imageButtonCopy;
     private CachedList cachedList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +41,35 @@ public class ListActivity extends AppCompatActivity {
         imageButtonCopy = findViewById(R.id.image_button_copy);
         cachedList = CachedList.getInstance();
 
-        //set list id
+        //set list id label
         String listId = String.valueOf(cachedList.getCachedList());
         textViewListId.setText(listId);
 
-        //fab
+        //add item
         fabAdd.setOnClickListener(v -> {
-            Intent toAdd = new Intent(this, AddItemActivity.class);
-            startActivity(toAdd);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.activity_add_alert, null);
+            builder.setView(dialogView);
+            builder.setPositiveButton("Add", (dialog, id) -> {
+            });
+            builder.setNegativeButton("Close", (dialog, id) -> {
+            });
+            builder.setTitle("Add item");
+
+            NumberPicker pickerQty = dialogView.findViewById(R.id.picker_qty);
+            NumberPicker pickerUnit = dialogView.findViewById(R.id.picker_unit);
+
+            pickerQty.setMinValue(1);
+            pickerQty.setMaxValue(99);
+
+            String[] unitValues = new String[]{"g", "kg", "ml", "l"};
+            pickerUnit.setMinValue(0);
+            pickerUnit.setMaxValue(3);
+            pickerUnit.setDisplayedValues(unitValues);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         //settings
@@ -65,5 +91,7 @@ public class ListActivity extends AppCompatActivity {
             clipboard.setPrimaryClip(clip);
             Toast.makeText(this, "List ID copied to clipboard", Toast.LENGTH_SHORT).show();
         });
+
+
     }
 }
