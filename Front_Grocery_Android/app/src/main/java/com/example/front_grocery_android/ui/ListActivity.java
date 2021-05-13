@@ -63,9 +63,9 @@ public class ListActivity extends AppCompatActivity {
             pickerQty.setMinValue(1);
             pickerQty.setMaxValue(99);
 
-            String[] unitValues = new String[]{"g", "kg", "ml", "l"};
+            String[] unitValues = new String[]{"none", "g", "kg", "ml", "l"};
             pickerUnit.setMinValue(0);
-            pickerUnit.setMaxValue(3);
+            pickerUnit.setMaxValue(4);
             pickerUnit.setDisplayedValues(unitValues);
 
             AlertDialog dialog = builder.create();
