@@ -2,6 +2,7 @@ package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -16,17 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
-import com.example.front_grocery_android.Repository.CachedList;
+import com.example.front_grocery_android.repository.ListsRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ListActivity extends AppCompatActivity {
 
+    private ListActivityViewModel viewModel;
     private TextView textViewListId;
     private FloatingActionButton fabAdd;
     private ImageButton imageButtonSettings;
     private ImageButton imageButtonSwitch;
     private ImageButton imageButtonCopy;
-    private CachedList cachedList;
 
 
     @Override
@@ -34,15 +35,15 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        viewModel = new ViewModelProvider(this).get(ListActivityViewModel.class);
         textViewListId = findViewById(R.id.textView_list_id);
         fabAdd = findViewById(R.id.fab_add);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
         imageButtonSwitch = findViewById(R.id.imageButtonSwitch);
         imageButtonCopy = findViewById(R.id.image_button_copy);
-        cachedList = CachedList.getInstance();
 
         //set list id label
-        String listId = String.valueOf(cachedList.getCachedList());
+        String listId = String.valueOf(viewModel.getSelectedListId());
         textViewListId.setText(listId);
 
         //add item
@@ -87,7 +88,7 @@ public class ListActivity extends AppCompatActivity {
         //copyId
         imageButtonCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("Shopply list ID", String.valueOf(cachedList.getCachedList()));
+            ClipData clip = ClipData.newPlainText("Shopply list ID", String.valueOf(viewModel.getSelectedListId()));
             clipboard.setPrimaryClip(clip);
             Toast.makeText(this, "List ID copied to clipboard", Toast.LENGTH_SHORT).show();
         });

@@ -3,10 +3,12 @@ package com.example.front_grocery_android.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.front_grocery_android.R;
 
@@ -14,19 +16,26 @@ public class ListSettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ImageButton imageButtonHelp;
     private Button buttonWipe;
+    private ListSettingsActivityViewModel viewModel;
+    private TextView textViewListIdLabelSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_settings);
 
+        viewModel = new ViewModelProvider(this).get(ListSettingsActivityViewModel.class);
         imageButtonHelp = findViewById(R.id.image_button_settings_help);
         buttonWipe = findViewById(R.id.button_wipe);
+        textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
 
         //Toolbar
         toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //list id label
+        textViewListIdLabelSettings.setText(String.valueOf(viewModel.getSelectedListId()));
 
         //help button
         imageButtonHelp.setOnClickListener(v -> {
