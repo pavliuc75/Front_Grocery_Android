@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         //help button
         imageButtonHelp.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("If you know the code to an existing list, enter it into the input field. Otherwise, press the \"Generate\" button to create a new list.");
-            builder.setPositiveButton("Close", (dialog, id) -> {
+            builder.setMessage(R.string.main_help_text);
+            builder.setPositiveButton(R.string.close_alert_text, (dialog, id) -> {
             });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -67,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         //go to list button
         buttonGoToList.setOnClickListener(v -> {
             if (TextUtils.isEmpty(editTextListId.getText())) {
-                editTextListId.setError("This field is required");
+                editTextListId.setError(getString(R.string.field_required));
             } else if ((Integer.parseInt(editTextListId.getText().toString()) > 9999) || (Integer.parseInt(editTextListId.getText().toString()) < 1000)) {
-                editTextListId.setError("The value should be between 1000 and 9999");
+                editTextListId.setError(getString(R.string.main_set_error_2));
             } else if (!checkIfListExists(Integer.parseInt(editTextListId.getText().toString()))) {
-                editTextListId.setError("This list does not exist");
+                editTextListId.setError(getString(R.string.main_set_error_3));
             } else {
                 Intent toList = new Intent(this, ListActivity.class);
                 viewModel.setSelectedListId(Integer.parseInt(editTextListId.getText().toString()));

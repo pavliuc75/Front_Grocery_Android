@@ -53,6 +53,7 @@ public class ListsRepository {
             ArrayList<List> lists = this.lists.getValue().lists;
             List newList = new List();
             newList.id = listId;
+            newList.description = "";
             newList.items = new ArrayList<>();
             lists.add(newList);
             saveLists(lists);

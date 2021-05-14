@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Shopply</string>
+    <string name="welcome">Welcome</string>
+    <string name="enter_the_list_id_below">Enter the list ID below</string>
+    <string name="list_id">List ID</string>
+    <string name="go_to_list">Go to list</string>
+    <string name="or_generate_a_new_list_instead">Or, generate a new list instead</string>
+    <string name="generate">Generate</string>
+    <string name="_2021_shopply">© 2021 Shopply</string>
+    <string name="logo">logo</string>
+    <string name="helpbutton">helpButton</string>
+    <string name="main_help_text">If you know the code to an existing list, enter it into the input field. Otherwise, press the \"Generate\" button to create a new list.</string>
+    <string name="close_alert_text">Close</string>
+    <string name="field_required">This field is required</string>
+    <string name="main_set_error_2">The value should be between 1000 and 9999</string>
+    <string name="main_set_error_3">This list does not exist</string>
 </resources>
