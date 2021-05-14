@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         viewModel.init();
-
+        //TODO: auto start list activity with last list id from device memory
 
         imageButtonHelp = findViewById(R.id.imageButtonHelp);
         buttonGoToList = findViewById(R.id.button_go_to_list);

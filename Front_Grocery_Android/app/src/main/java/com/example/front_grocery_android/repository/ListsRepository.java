@@ -1,6 +1,7 @@
 package com.example.front_grocery_android.repository;
 
 import com.example.front_grocery_android.data.ListsLiveData;
+import com.example.front_grocery_android.models.Item;
 import com.example.front_grocery_android.models.List;
 import com.example.front_grocery_android.models.Lists;
 import com.google.firebase.database.DatabaseReference;
@@ -60,17 +61,51 @@ public class ListsRepository {
         }
     }
 
-    public void changeListDescription(int listId, String newDescription) {
+    public void changeListDescription(String newDescription) {
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
             for (int i = 0; i < lists.size(); i++) {
-                if (listId == lists.get(i).id) {
+                if (selectedListId == lists.get(i).id) {
                     lists.get(i).description = newDescription;
                     saveLists(lists);
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addItemToList(Item item) {
+        try {
+            ArrayList<List> lists = this.lists.getValue().lists;
+            ArrayList<Item> itemsScoped = null;
+            for (int i = 0; i < lists.size(); i++) {
+                if (lists.get(i).id == selectedListId) {
+                    itemsScoped = lists.get(i).items;
+                    break;
+                }
+            }
+
+            if (itemsScoped == null) {
+                itemsScoped = new ArrayList<>();
+            }
+            if (itemsScoped.isEmpty()) {
+                item.id = 0;
+            } else {
+                item.id = itemsScoped.get(itemsScoped.size() - 1).id + 1;
+            }
+
+            itemsScoped.add(item);
+            for (int i = 0; i < lists.size(); i++) {
+                if (lists.get(i).id == selectedListId) {
+                    lists.get(i).items = itemsScoped;
+                    break;
+                }
+            }
+
+            saveLists(lists);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

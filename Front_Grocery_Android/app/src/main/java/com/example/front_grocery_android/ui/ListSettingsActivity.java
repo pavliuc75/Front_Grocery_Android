@@ -73,7 +73,7 @@ public class ListSettingsActivity extends AppCompatActivity {
 
             builder.setTitle("Change list description");
             builder.setPositiveButton("Change", (dialog, id) -> {
-                viewModel.changeListDescription(selectedList.id, editTextChangeDescription.getText().toString());
+                viewModel.changeListDescription(editTextChangeDescription.getText().toString());
             });
             builder.setNegativeButton("Cancel", (dialog, id) -> {
 
@@ -90,6 +90,7 @@ public class ListSettingsActivity extends AppCompatActivity {
 
             AlertDialog dialog = builder.create();
             dialog.show();
+            //TODO:autofocus+keyboard
         });
 
         //help button
