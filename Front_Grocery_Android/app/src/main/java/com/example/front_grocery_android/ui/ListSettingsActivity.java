@@ -11,6 +11,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.front_grocery_android.R;
+import com.example.front_grocery_android.models.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class ListSettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -18,6 +21,8 @@ public class ListSettingsActivity extends AppCompatActivity {
     private Button buttonWipe;
     private ListSettingsActivityViewModel viewModel;
     private TextView textViewListIdLabelSettings;
+    private List selectedList;
+    private TextView textViewListDescriptionSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,21 @@ public class ListSettingsActivity extends AppCompatActivity {
         imageButtonHelp = findViewById(R.id.image_button_settings_help);
         buttonWipe = findViewById(R.id.button_wipe);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
+        textViewListDescriptionSettings = findViewById(R.id.text_view_list_description_settings);
+
+        //get listener
+        viewModel.getLists().observe(this, lists -> {
+            for (int i = 0; i < lists.getBody().size(); i++) {
+                if (lists.getBody().get(i).id == viewModel.getSelectedListId()) {
+                    selectedList = lists.getBody().get(i);
+                }
+            }
+
+            // description label
+            if (selectedList != null) {
+                setDescriptionLabel();
+            }
+        });
 
         //Toolbar
         toolbar = findViewById(R.id.settings_toolbar);
@@ -58,5 +78,13 @@ public class ListSettingsActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+    }
+
+    public void setDescriptionLabel() {
+        if (!StringUtils.isEmpty(selectedList.description)) {
+            textViewListDescriptionSettings.setText(selectedList.description);
+        } else {
+            textViewListDescriptionSettings.setText("No description");
+        }
     }
 }

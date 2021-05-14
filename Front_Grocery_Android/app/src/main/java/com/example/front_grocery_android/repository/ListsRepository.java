@@ -25,11 +25,8 @@ public class ListsRepository {
     }
 
     public void init() {
-        System.out.println("inito");
         myRef = FirebaseDatabase.getInstance().getReference();
-        System.out.println(myRef);
         lists = new ListsLiveData(myRef);
-        System.out.println(lists.getValue());
     }
 
     //list id label

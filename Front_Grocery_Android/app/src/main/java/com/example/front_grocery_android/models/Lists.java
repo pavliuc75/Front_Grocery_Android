@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Lists {
     public ArrayList<List> lists;
 
+    public Lists() {
+
+    }
+
     public Lists(ArrayList<List> lists) {
         this.lists = lists;
     }

@@ -19,6 +19,7 @@ public class ListsLiveData extends LiveData<Lists> {
 
         @Override
         public void onCancelled(@NonNull DatabaseError error) {
+            System.out.println(error.toString());
         }
     };
 

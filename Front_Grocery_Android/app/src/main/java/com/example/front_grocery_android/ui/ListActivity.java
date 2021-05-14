@@ -17,8 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
+import com.example.front_grocery_android.models.List;
 import com.example.front_grocery_android.repository.ListsRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -28,7 +31,8 @@ public class ListActivity extends AppCompatActivity {
     private ImageButton imageButtonSettings;
     private ImageButton imageButtonSwitch;
     private ImageButton imageButtonCopy;
-
+    private TextView textViewDescription;
+    private List selectedList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,21 @@ public class ListActivity extends AppCompatActivity {
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
         imageButtonSwitch = findViewById(R.id.imageButtonSwitch);
         imageButtonCopy = findViewById(R.id.image_button_copy);
+        textViewDescription = findViewById(R.id.text_view_description);
+
+        //get listener
+        viewModel.getLists().observe(this, lists -> {
+            for (int i = 0; i < lists.getBody().size(); i++) {
+                if (lists.getBody().get(i).id == viewModel.getSelectedListId()) {
+                    selectedList = lists.getBody().get(i);
+                }
+            }
+
+            // description label
+            if (selectedList != null) {
+                setDescriptionLabel();
+            }
+        });
 
         //set list id label
         String listId = String.valueOf(viewModel.getSelectedListId());
@@ -92,7 +111,13 @@ public class ListActivity extends AppCompatActivity {
             clipboard.setPrimaryClip(clip);
             Toast.makeText(this, "List ID copied to clipboard", Toast.LENGTH_SHORT).show();
         });
+    }
 
-
+    public void setDescriptionLabel() {
+        if (!StringUtils.isEmpty(selectedList.description)) {
+            textViewDescription.setText(selectedList.description);
+        } else {
+            textViewDescription.setText("");
+        }
     }
 }

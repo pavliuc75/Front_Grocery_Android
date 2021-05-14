@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.models.Item;
 import com.example.front_grocery_android.models.List;
+import com.example.front_grocery_android.models.Lists;
 import com.example.front_grocery_android.repository.ListsRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextListId;
 
     private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        //viewModel.init();
+        viewModel.init();
 
 
         imageButtonHelp = findViewById(R.id.imageButtonHelp);
@@ -47,12 +49,9 @@ public class MainActivity extends AppCompatActivity {
         editTextListId = findViewById(R.id.editText_list_id);
 
         //get listener
-        /*
         viewModel.getLists().observe(this, lists -> {
-            System.out.println(lists.getBody());
         });
 
-         */
 
         //help button
         imageButtonHelp.setOnClickListener(v -> {
@@ -79,18 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         //generate button
         buttonGenerate.setOnClickListener(v -> {
-            ArrayList<List> lists = new ArrayList<>();
-            List l1 = new List();
-            l1.id = 1000;
-            l1.description = "first";
-            Item i1 = new Item();
-            i1.id = 1;
-            i1.name = "firstItem";
-            l1.items = new ArrayList<>();
-            l1.items.add(i1);
-            lists.add(l1);
-            //viewModel.saveLists(lists);
-            basicReadWrite();
+            //basicReadWrite();
         });
     }
 
@@ -98,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         // [START write_message]
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("kek2");
+        DatabaseReference myRef = database.getReference();
         Log.d(TAG, "Firebase " + database);
         Log.d(TAG, "Firebase " + myRef);
         Log.d(TAG, "Firebase " + database.getReference());
@@ -106,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Firebase " + myRef.getKey());
         Log.d(TAG, "Firebase " + myRef.getRoot());
 
-        myRef.setValue("Hello, World!");
+        //myRef.setValue("Hello, World!");
         // [END write_message]
 
         // [START read_message]
@@ -116,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d(TAG, "Value is: " + value);
+                Lists value = dataSnapshot.getValue(Lists.class);
+                Log.d(TAG, "Value is: " + value.getBody().get(1).description);
             }
 
             @Override
