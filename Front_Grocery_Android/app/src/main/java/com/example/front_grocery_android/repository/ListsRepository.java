@@ -67,9 +67,24 @@ public class ListsRepository {
             for (int i = 0; i < lists.size(); i++) {
                 if (selectedListId == lists.get(i).id) {
                     lists.get(i).description = newDescription;
-                    saveLists(lists);
                 }
             }
+            saveLists(lists);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void wipeList() {
+        try {
+            ArrayList<List> lists = this.lists.getValue().lists;
+            for (int i = 0; i < lists.size(); i++) {
+                if (selectedListId == lists.get(i).id) {
+                    lists.get(i).description = "";
+                    lists.get(i).items = new ArrayList<>();
+                }
+            }
+            saveLists(lists);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

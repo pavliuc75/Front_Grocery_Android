@@ -41,4 +41,8 @@ public class ListSettingsActivityViewModel extends ViewModel {
     public void changeListDescription(String newDescription) {
         listsRepository.changeListDescription(newDescription);
     }
+
+    public void wipeList() {
+        listsRepository.wipeList();
+    }
 }

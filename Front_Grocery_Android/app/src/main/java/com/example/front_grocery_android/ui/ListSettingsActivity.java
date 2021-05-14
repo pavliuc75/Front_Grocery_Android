@@ -96,7 +96,7 @@ public class ListSettingsActivity extends AppCompatActivity {
         //help button
         imageButtonHelp.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("This will remove all items from the current list");
+            builder.setMessage("This will remove all items from the current list and reset the list description");
             builder.setNegativeButton("Close", (dialog, id) -> {
             });
             AlertDialog dialog = builder.create();
@@ -107,9 +107,10 @@ public class ListSettingsActivity extends AppCompatActivity {
         buttonWipe.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Are you sure that you want to wipe the current list?");
-            builder.setNegativeButton("Close", (dialog, id) -> {
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
             });
-            builder.setPositiveButton("Delete", (dialog, id) -> {
+            builder.setPositiveButton("Wipe", (dialog, id) -> {
+                viewModel.wipeList();
             });
             AlertDialog dialog = builder.create();
             dialog.show();
