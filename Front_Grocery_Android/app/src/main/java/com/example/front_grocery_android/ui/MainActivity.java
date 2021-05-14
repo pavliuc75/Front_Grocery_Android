@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonGoToList;
     private Button buttonGenerate;
     private EditText editTextListId;
+    private Lists listsScoped;
 
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
+            listsScoped = lists;
         });
 
 
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 editTextListId.setError("This field is required");
             } else if ((Integer.parseInt(editTextListId.getText().toString()) > 9999) || (Integer.parseInt(editTextListId.getText().toString()) < 1000)) {
                 editTextListId.setError("The value should be between 1000 and 9999");
+            } else if (!checkIfListExists(Integer.parseInt(editTextListId.getText().toString()))) {
+                editTextListId.setError("This list does not exist");
             } else {
                 Intent toList = new Intent(this, ListActivity.class);
                 viewModel.setSelectedListId(Integer.parseInt(editTextListId.getText().toString()));
@@ -78,12 +81,19 @@ public class MainActivity extends AppCompatActivity {
 
         //generate button
         buttonGenerate.setOnClickListener(v -> {
-            //basicReadWrite();
+            if (listsScoped != null) {
+                int lastListId = listsScoped.getBody().get(listsScoped.lists.size() - 1).id;
+                viewModel.setSelectedListId(lastListId + 1);
+                viewModel.generateNewList(viewModel.getSelectedListId());
+                Intent toList = new Intent(this, ListActivity.class);
+                startActivity(toList);
+            }
         });
     }
 
     public void basicReadWrite() {
         // [START write_message]
+        final String TAG = "MainActivity";
         // Write a message to the database
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
@@ -115,5 +125,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // [END read_message]
+    }
+
+    public boolean checkIfListExists(int listId) {
+        if (listsScoped != null) {
+            for (int i = 0; i < listsScoped.getBody().size(); i++) {
+                if (listsScoped.getBody().get(i).id == listId)
+                    return true;
+            }
+        }
+        return false;
     }
 }

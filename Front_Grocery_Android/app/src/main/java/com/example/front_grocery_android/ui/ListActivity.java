@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.models.List;
-import com.example.front_grocery_android.repository.ListsRepository;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.apache.commons.lang3.StringUtils;
@@ -69,7 +68,7 @@ public class ListActivity extends AppCompatActivity {
         fabAdd.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
-            View dialogView = inflater.inflate(R.layout.activity_add_alert, null);
+            View dialogView = inflater.inflate(R.layout.alert_add_item, null);
             builder.setView(dialogView);
             builder.setPositiveButton("Add", (dialog, id) -> {
             });

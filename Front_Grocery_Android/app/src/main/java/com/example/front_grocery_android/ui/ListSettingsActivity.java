@@ -6,7 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ public class ListSettingsActivity extends AppCompatActivity {
     private TextView textViewListIdLabelSettings;
     private List selectedList;
     private TextView textViewListDescriptionSettings;
+    private ImageButton imageButtonChangeDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class ListSettingsActivity extends AppCompatActivity {
         buttonWipe = findViewById(R.id.button_wipe);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
         textViewListDescriptionSettings = findViewById(R.id.text_view_list_description_settings);
+        imageButtonChangeDescription = findViewById(R.id.image_button_change_description);
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
@@ -56,6 +61,36 @@ public class ListSettingsActivity extends AppCompatActivity {
 
         //list id label
         textViewListIdLabelSettings.setText(String.valueOf(viewModel.getSelectedListId()));
+
+        //change description button
+        imageButtonChangeDescription.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.alert_change_description, null);
+            builder.setView(dialogView);
+
+            EditText editTextChangeDescription = dialogView.findViewById(R.id.edit_text_change_description);
+
+            builder.setTitle("Change list description");
+            builder.setPositiveButton("Change", (dialog, id) -> {
+                viewModel.changeListDescription(selectedList.id, editTextChangeDescription.getText().toString());
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
+
+            });
+            builder.setOnCancelListener(dialog -> {
+
+            });
+
+            String defaultText = "";
+            if (!StringUtils.isEmpty(selectedList.description)) {
+                defaultText = selectedList.description;
+            }
+            editTextChangeDescription.setText(defaultText);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
         //help button
         imageButtonHelp.setOnClickListener(v -> {

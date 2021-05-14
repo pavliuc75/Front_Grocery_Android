@@ -46,4 +46,31 @@ public class ListsRepository {
     public void saveLists(ArrayList<List> lists) {
         myRef.setValue(new Lists(lists));
     }
+
+    public void generateNewList(int listId) {
+        try {
+            ArrayList<List> lists = this.lists.getValue().lists;
+            List newList = new List();
+            newList.id = listId;
+            newList.items = new ArrayList<>();
+            lists.add(newList);
+            saveLists(lists);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    public void changeListDescription(int listId, String newDescription) {
+        try {
+            ArrayList<List> lists = this.lists.getValue().lists;
+            for (int i = 0; i < lists.size(); i++) {
+                if (listId == lists.get(i).id) {
+                    lists.get(i).description = newDescription;
+                    saveLists(lists);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
 }

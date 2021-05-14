@@ -38,4 +38,8 @@ public class MainActivityViewModel extends ViewModel {
     public void saveLists(ArrayList<List> lists) {
         listsRepository.saveLists(lists);
     }
+
+    public void generateNewList(int listId) {
+        listsRepository.generateNewList(listId);
+    }
 }

@@ -37,4 +37,8 @@ public class ListSettingsActivityViewModel extends ViewModel {
     public void saveLists(ArrayList<List> lists) {
         listsRepository.saveLists(lists);
     }
+
+    public void changeListDescription(int listId, String newDescription) {
+        listsRepository.changeListDescription(listId, newDescription);
+    }
 }
