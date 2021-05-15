@@ -13,7 +13,7 @@
             android:name=".ui.ListSettingsActivity"
             android:parentActivityName=".ui.ListActivity" />
         <activity
-            android:name=".ui.AddItemActivity"
+            android:name=".ui.CompletedItemsActivity"
             android:parentActivityName=".ui.ListActivity" />
         <activity android:name=".ui.ListActivity" />
         <activity android:name=".ui.MainActivity">

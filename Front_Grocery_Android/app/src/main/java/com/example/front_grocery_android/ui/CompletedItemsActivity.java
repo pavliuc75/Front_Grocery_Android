@@ -7,17 +7,17 @@ import android.os.Bundle;
 
 import com.example.front_grocery_android.R;
 
-public class AddItemActivity extends AppCompatActivity {
+public class CompletedItemsActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_item);
+        setContentView(R.layout.activity_completed_items);
 
         //Toolbar
-        toolbar = findViewById(R.id.add_item_toolbar);
+        toolbar = findViewById(R.id.completed_items_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

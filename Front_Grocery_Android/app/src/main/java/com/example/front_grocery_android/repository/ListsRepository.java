@@ -40,6 +40,7 @@ public class ListsRepository {
     }
 
     //firebase data
+    //TODO: replace sending the entire list back with individual parts
     public ListsLiveData getLists() {
         return lists;
     }
@@ -53,7 +54,7 @@ public class ListsRepository {
             ArrayList<List> lists = this.lists.getValue().lists;
             List newList = new List();
             newList.id = listId;
-            newList.description = "";
+            newList.description = "My new list";
             newList.items = new ArrayList<>();
             lists.add(newList);
             saveLists(lists);
