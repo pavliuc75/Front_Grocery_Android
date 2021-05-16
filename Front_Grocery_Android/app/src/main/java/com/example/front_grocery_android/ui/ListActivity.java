@@ -32,8 +32,9 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements ListAdapter.OnListIncompleteItemClickListener {
 
+    //TODO: mby transform some child activities to fragments
     private ListActivityViewModel viewModel;
     private TextView textViewListId;
     private FloatingActionButton fabAdd;
@@ -59,6 +60,24 @@ public class ListActivity extends AppCompatActivity {
         textViewDescription = findViewById(R.id.text_view_description);
         buttonToCompletedItems = findViewById(R.id.button_to_completed_items);
         recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.hasFixedSize();
+
+       /*
+        ArrayList<Item> items = new ArrayList<>();
+        Item ii1 = new Item();
+        ii1.name = "i1";
+        Item i2 = new Item();
+        i2.name = "i2";
+        Item i3 = new Item();
+        i3.name = "i3";
+        items.add(ii1);
+        items.add(i2);
+        items.add(i3);
+
+        ListAdapter adapter = new ListAdapter(items, this);
+        recyclerView.setAdapter(adapter);
+        */
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
@@ -71,6 +90,42 @@ public class ListActivity extends AppCompatActivity {
             // description label
             if (selectedList != null) {
                 setDescriptionLabel();
+            }
+
+
+            //recyclerView
+            //TODO: check if empty and display label
+            if (selectedList != null) {
+                if (selectedList.items != null) {
+                    if (!selectedList.items.isEmpty()) {
+                        ArrayList<Item> incompleteItemsList = new ArrayList<>();
+                        for (int i = 0; i < selectedList.items.size(); i++) {
+                            if (!selectedList.items.get(i).isCompleted)
+                                incompleteItemsList.add(selectedList.items.get(i));
+                        }
+                        if (!incompleteItemsList.isEmpty()) {
+                            ListAdapter adapter = new ListAdapter(incompleteItemsList, this);
+                            recyclerView.setAdapter(adapter);
+                        }
+                    }
+                }
+            }
+
+
+            //toCompletedListButton
+            if (selectedList != null) {
+                if (selectedList.items != null) {
+                    if (!selectedList.items.isEmpty()) {
+                        ArrayList<Item> completeItemsList = new ArrayList<>();
+                        for (int i = 0; i < selectedList.items.size(); i++) {
+                            if (selectedList.items.get(i).isCompleted)
+                                completeItemsList.add(selectedList.items.get(i));
+                        }
+                        if (!completeItemsList.isEmpty()) {
+                            buttonToCompletedItems.setEnabled(true);
+                        }
+                    }
+                }
             }
         });
 
@@ -87,7 +142,7 @@ public class ListActivity extends AppCompatActivity {
             builder.setTitle("Add item");
 
             AtomicInteger qty = new AtomicInteger(1);
-            AtomicReference<String> unit = new AtomicReference<>("none");
+            AtomicReference<String> unit = new AtomicReference<>("g");
 
             NumberPicker pickerQty = dialogView.findViewById(R.id.picker_qty);
             NumberPicker pickerUnit = dialogView.findViewById(R.id.picker_unit);
@@ -99,9 +154,9 @@ public class ListActivity extends AppCompatActivity {
             pickerQty.setMaxValue(99);
             pickerQty.setOnValueChangedListener((numberPicker, i, i1) -> qty.set(pickerQty.getValue()));
 
-            String[] unitValues = new String[]{"none", "g", "kg", "ml", "l"};
+            String[] unitValues = new String[]{"g", "kg", "ml", "l"};
             pickerUnit.setMinValue(0);
-            pickerUnit.setMaxValue(4);
+            pickerUnit.setMaxValue(3);
             pickerUnit.setDisplayedValues(unitValues);
             pickerUnit.setOnValueChangedListener((numberPicker, i, i1) -> {
                 int index = pickerUnit.getValue();
@@ -129,7 +184,7 @@ public class ListActivity extends AppCompatActivity {
                     newItem.details = editTextAddItemDetails.getText().toString();
                     newItem.isCompleted = false;
                     if (StringUtils.isEmpty(editTextAddItemWeight.getText().toString())) {
-                        newItem.weight = -1;
+                        newItem.weight = 0;
                     } else
                         newItem.weight = Double.parseDouble(editTextAddItemWeight.getText().toString());
                     newItem.quantity = qty.get();
@@ -166,63 +221,6 @@ public class ListActivity extends AppCompatActivity {
             Intent toCompletedItems = new Intent(this, CompletedItemsActivity.class);
             startActivity(toCompletedItems);
         });
-
-        //recyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.hasFixedSize();
-
-        ArrayList<Item> itemss = new ArrayList<>();
-        Item i1 = new Item();
-        i1.name = "i1";
-        Item i2 = new Item();
-        i2.name = "i2";
-        Item i3 = new Item();
-        i3.name = "i3";
-        Item i4 = new Item();
-        i4.name = "i4";
-        Item i5 = new Item();
-        i5.name = "i5";
-        Item i6 = new Item();
-        i6.name = "i6";
-        Item i7 = new Item();
-        i7.name = "i7";
-        Item i8 = new Item();
-        i8.name = "i8";
-        Item i9 = new Item();
-        i9.name = "i9";
-        Item i10 = new Item();
-        i10.name = "i10";
-        Item i11 = new Item();
-        i11.name = "i11";
-        Item i12 = new Item();
-        i12.name = "i12";
-        Item i13 = new Item();
-        i13.name = "i13";
-        Item i14 = new Item();
-        i14.name = "i14";
-        Item i15 = new Item();
-        i15.name = "i15";
-        Item i16 = new Item();
-        i16.name = "i16";
-        itemss.add(i1);
-        itemss.add(i2);
-        itemss.add(i3);
-        itemss.add(i4);
-        itemss.add(i5);
-        itemss.add(i6);
-        itemss.add(i7);
-        itemss.add(i8);
-        itemss.add(i9);
-        itemss.add(i10);
-        itemss.add(i11);
-        itemss.add(i12);
-        itemss.add(i13);
-        itemss.add(i14);
-        itemss.add(i15);
-        itemss.add(i16);
-        ListAdapter adapter = new ListAdapter(itemss);
-        recyclerView.setAdapter(adapter);
-        //TODO: check if empty
     }
 
     public void setDescriptionLabel() {
@@ -233,4 +231,8 @@ public class ListActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onClick(int index) {
+        System.out.println(index);
+    }
 }

@@ -54,7 +54,7 @@ public class ListsRepository {
             ArrayList<List> lists = this.lists.getValue().lists;
             List newList = new List();
             newList.id = listId;
-            newList.description = "My new list";
+            newList.description = "My shopping list";
             newList.items = new ArrayList<>();
             lists.add(newList);
             saveLists(lists);
@@ -82,7 +82,7 @@ public class ListsRepository {
             ArrayList<List> lists = this.lists.getValue().lists;
             for (int i = 0; i < lists.size(); i++) {
                 if (selectedListId == lists.get(i).id) {
-                    lists.get(i).description = "";
+                    lists.get(i).description = "My shopping list";
                     lists.get(i).items = new ArrayList<>();
                 }
             }
