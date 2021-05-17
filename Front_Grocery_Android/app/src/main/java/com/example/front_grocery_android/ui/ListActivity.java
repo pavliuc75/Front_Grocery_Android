@@ -77,7 +77,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                 setDescriptionLabel();
             }
 
-
             //recyclerView
             //TODO: check if empty and display label
             //TODO: display in reverse order
@@ -92,11 +91,22 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         if (!incompleteItemsList.isEmpty()) {
                             ListAdapter adapter = new ListAdapter(incompleteItemsList, this);
                             recyclerView.setAdapter(adapter);
+                        } else {
+                            ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
+                            recyclerView.setAdapter(adapter);
                         }
+                    } else {
+                        ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
+                        recyclerView.setAdapter(adapter);
                     }
+                } else {
+                    ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
+                    recyclerView.setAdapter(adapter);
                 }
+            } else {
+                ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
+                recyclerView.setAdapter(adapter);
             }
-
 
             //toCompletedListButton
             if (selectedList != null) {
@@ -276,6 +286,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         });
 
         builder.setNeutralButton("Delete", (dialog, id) -> {
+            viewModel.deleteItem(updItem);
         });
 
         AlertDialog dialog = builder.create();
@@ -285,17 +296,15 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             if (StringUtils.isEmpty(editTextAddItemName.getText().toString())) {
                 editTextAddItemName.setError("This field is required");
             } else {
-                Item newItem = new Item();
-                newItem.name = editTextAddItemName.getText().toString();
-                newItem.details = editTextAddItemDetails.getText().toString();
-                newItem.isCompleted = false;
+                updItem.name = editTextAddItemName.getText().toString();
+                updItem.details = editTextAddItemDetails.getText().toString();
                 if (StringUtils.isEmpty(editTextAddItemWeight.getText().toString())) {
-                    newItem.weight = 0;
+                    updItem.weight = 0;
                 } else
-                    newItem.weight = Double.parseDouble(editTextAddItemWeight.getText().toString());
-                newItem.quantity = qty.get();
-                newItem.unit = unit.get();
-                viewModel.addItemToList(newItem);
+                    updItem.weight = Double.parseDouble(editTextAddItemWeight.getText().toString());
+                updItem.quantity = qty.get();
+                updItem.unit = unit.get();
+                viewModel.updateItem(updItem);
                 dialog.dismiss();
             }
         });

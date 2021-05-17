@@ -47,4 +47,8 @@ public class ListActivityViewModel extends ViewModel {
     public void updateItem(Item updItem) {
         listsRepository.updateItem(updItem);
     }
+
+    public void deleteItem(Item item) {
+        listsRepository.deleteItem(item);
+    }
 }
