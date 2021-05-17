@@ -205,6 +205,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         });
 
         //copyId
+        //TODO: mby share button instead
         imageButtonCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("Shopply list ID", String.valueOf(viewModel.getSelectedListId()));
