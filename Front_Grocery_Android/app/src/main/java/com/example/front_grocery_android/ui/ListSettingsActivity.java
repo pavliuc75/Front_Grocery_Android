@@ -78,9 +78,6 @@ public class ListSettingsActivity extends AppCompatActivity {
             builder.setNegativeButton("Cancel", (dialog, id) -> {
 
             });
-            builder.setOnCancelListener(dialog -> {
-
-            });
 
             String defaultText = "";
             if (!StringUtils.isEmpty(selectedList.description)) {

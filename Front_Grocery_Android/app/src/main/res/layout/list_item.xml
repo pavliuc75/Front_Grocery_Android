@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageButton
-        android:id="@+id/image_button_set_incompleted"
+        android:id="@+id/image_button_set_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/ic_outline_brightness_1_24" />
 
     <TextView
-        android:id="@+id/text_view_item_completed_title"
+        android:id="@+id/text_view_item_complete_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -26,11 +26,11 @@
         android:text="Item"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image_button_set_incompleted"
+        app:layout_constraintStart_toEndOf="@+id/image_button_set_complete"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view_item_completed_description"
+        android:id="@+id/text_view_item_incomplete_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
@@ -42,5 +42,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_item_completed_title" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_item_complete_title" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,7 +59,37 @@ public class ListsRepository {
             lists.add(newList);
             saveLists(lists);
         } catch (Exception e) {
-            System.out.println(e.toString());
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateItem(Item updItem) {
+        try {
+            ArrayList<List> lists = this.lists.getValue().lists;
+            List listToBeUpdated = new List();
+            for (int i = 0; i < lists.size(); i++) {
+                if (lists.get(i).id == getSelectedListId())
+                    listToBeUpdated = lists.get(i);
+            }
+            for (int i = 0; i < listToBeUpdated.items.size(); i++) {
+                if (listToBeUpdated.items.get(i).id == updItem.id) {
+                    listToBeUpdated.items.get(i).name = updItem.name;
+                    listToBeUpdated.items.get(i).isCompleted = updItem.isCompleted;
+                    listToBeUpdated.items.get(i).unit = updItem.unit;
+                    listToBeUpdated.items.get(i).weight = updItem.weight;
+                    listToBeUpdated.items.get(i).quantity = updItem.quantity;
+                    listToBeUpdated.items.get(i).details = updItem.details;
+                    break;
+                }
+            }
+            for (int i = 0; i < lists.size(); i++) {
+                if (lists.get(i).id == getSelectedListId()) {
+                    lists.get(i).items = listToBeUpdated.items;
+                }
+            }
+            saveLists(lists);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

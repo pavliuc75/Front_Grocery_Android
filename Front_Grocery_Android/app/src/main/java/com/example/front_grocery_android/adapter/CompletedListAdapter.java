@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +18,11 @@ import java.util.ArrayList;
 public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdapter.ViewHolder> {
 
     ArrayList<Item> items;
+    OnListCompleteItemClickListener listener;
 
-    public CompletedListAdapter(ArrayList<Item> items) {
+    public CompletedListAdapter(ArrayList<Item> items, OnListCompleteItemClickListener listener) {
         this.items = items;
+        this.listener = listener;
     }
 
     @NonNull
@@ -43,11 +46,32 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewItemCompletedTitle;
+        private ImageButton imageButtonSetIncomplete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewItemCompletedTitle = itemView.findViewById(R.id.text_view_item_completed_title);
+            textViewItemCompletedTitle = itemView.findViewById(R.id.text_view_item_complete_title);
             textViewItemCompletedTitle.setPaintFlags(textViewItemCompletedTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            imageButtonSetIncomplete = itemView.findViewById(R.id.image_button_set_incomplete);
+            imageButtonSetIncomplete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onIncompleteClick(getAbsoluteAdapterPosition());
+                }
+            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    listener.onCompleteItemClick(getAbsoluteAdapterPosition());
+                }
+            });
         }
+    }
+
+    public interface OnListCompleteItemClickListener {
+        void onCompleteItemClick(int index);
+
+        void onIncompleteClick(int index);
     }
 }

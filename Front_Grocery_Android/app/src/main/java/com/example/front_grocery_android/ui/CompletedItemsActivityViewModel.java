@@ -3,6 +3,7 @@ package com.example.front_grocery_android.ui;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.front_grocery_android.models.Item;
 import com.example.front_grocery_android.models.List;
 import com.example.front_grocery_android.models.Lists;
 import com.example.front_grocery_android.repository.ListsRepository;
@@ -36,5 +37,9 @@ public class CompletedItemsActivityViewModel extends ViewModel {
 
     public void saveLists(ArrayList<List> lists) {
         listsRepository.saveLists(lists);
+    }
+
+    public void updateItem(Item updItem) {
+        listsRepository.updateItem(updItem);
     }
 }

@@ -43,4 +43,8 @@ public class ListActivityViewModel extends ViewModel {
     public void addItemToList(Item item) {
         listsRepository.addItemToList(item);
     }
+
+    public void updateItem(Item updItem) {
+        listsRepository.updateItem(updItem);
+    }
 }

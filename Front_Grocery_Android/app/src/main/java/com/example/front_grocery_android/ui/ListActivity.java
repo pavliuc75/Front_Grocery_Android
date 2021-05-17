@@ -43,6 +43,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
     private ImageButton imageButtonCopy;
     private TextView textViewDescription;
     private List selectedList;
+    private ArrayList<Item> incompleteItemsList;
     private MaterialButton buttonToCompletedItems;
     private RecyclerView recyclerView;
 
@@ -63,22 +64,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.hasFixedSize();
 
-       /*
-        ArrayList<Item> items = new ArrayList<>();
-        Item ii1 = new Item();
-        ii1.name = "i1";
-        Item i2 = new Item();
-        i2.name = "i2";
-        Item i3 = new Item();
-        i3.name = "i3";
-        items.add(ii1);
-        items.add(i2);
-        items.add(i3);
-
-        ListAdapter adapter = new ListAdapter(items, this);
-        recyclerView.setAdapter(adapter);
-        */
-
         //get listener
         viewModel.getLists().observe(this, lists -> {
             for (int i = 0; i < lists.getBody().size(); i++) {
@@ -95,10 +80,11 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
             //recyclerView
             //TODO: check if empty and display label
+            //TODO: display in reverse order
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
-                        ArrayList<Item> incompleteItemsList = new ArrayList<>();
+                        incompleteItemsList = new ArrayList<>();
                         for (int i = 0; i < selectedList.items.size(); i++) {
                             if (!selectedList.items.get(i).isCompleted)
                                 incompleteItemsList.add(selectedList.items.get(i));
@@ -231,8 +217,95 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         }
     }
 
+    //updateItem
     @Override
-    public void onClick(int index) {
-        System.out.println(index);
+    public void onItemClick(int index) {
+        Item updItem = incompleteItemsList.get(index);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.alert_add_item, null);
+        builder.setView(dialogView);
+        builder.setTitle("Edit item");
+
+        AtomicInteger qty = new AtomicInteger(updItem.quantity);
+        AtomicReference<String> unit = new AtomicReference<>(updItem.unit);
+
+        NumberPicker pickerQty = dialogView.findViewById(R.id.picker_qty);
+        NumberPicker pickerUnit = dialogView.findViewById(R.id.picker_unit);
+        EditText editTextAddItemName = dialogView.findViewById(R.id.edit_text_add_item_name);
+        EditText editTextAddItemDetails = dialogView.findViewById(R.id.edit_text_add_item_details);
+        EditText editTextAddItemWeight = dialogView.findViewById(R.id.edit_text_add_item_weight);
+
+        pickerQty.setMinValue(1);
+        pickerQty.setMaxValue(99);
+        pickerQty.setValue(updItem.quantity);
+        pickerQty.setOnValueChangedListener((numberPicker, i, i1) -> qty.set(pickerQty.getValue()));
+
+        String[] unitValues = new String[]{"g", "kg", "ml", "l"};
+
+        int stringValue = 0;
+        if (updItem.unit != null) {
+            if (updItem.unit.equals("kg")) {
+                stringValue = 1;
+            } else if (updItem.unit.equals("ml")) {
+                stringValue = 2;
+            } else if (updItem.unit.equals("l")) {
+                stringValue = 3;
+            }
+        }
+
+        pickerUnit.setMinValue(0);
+        pickerUnit.setMaxValue(3);
+        pickerUnit.setValue(stringValue);
+        pickerUnit.setDisplayedValues(unitValues);
+        pickerUnit.setOnValueChangedListener((numberPicker, i, i1) -> {
+            int position = pickerUnit.getValue();
+            unit.set(unitValues[position]);
+        });
+
+        editTextAddItemName.setText(updItem.name);
+        editTextAddItemDetails.setText(updItem.details);
+        editTextAddItemWeight.setText(Double.toString(updItem.weight));
+
+        builder.setPositiveButton("Save",
+                (dialog, which) -> {
+                    //Do nothing here because we override this button later to change the close behaviour.
+                });
+
+        builder.setNegativeButton("Cancel", (dialog, id) -> {
+        });
+
+        builder.setNeutralButton("Delete", (dialog, id) -> {
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+            if (StringUtils.isEmpty(editTextAddItemName.getText().toString())) {
+                editTextAddItemName.setError("This field is required");
+            } else {
+                Item newItem = new Item();
+                newItem.name = editTextAddItemName.getText().toString();
+                newItem.details = editTextAddItemDetails.getText().toString();
+                newItem.isCompleted = false;
+                if (StringUtils.isEmpty(editTextAddItemWeight.getText().toString())) {
+                    newItem.weight = 0;
+                } else
+                    newItem.weight = Double.parseDouble(editTextAddItemWeight.getText().toString());
+                newItem.quantity = qty.get();
+                newItem.unit = unit.get();
+                viewModel.addItemToList(newItem);
+                dialog.dismiss();
+            }
+        });
+        //TODO:autofocus+keyboard
+    }
+
+    @Override
+    public void onCompleteClick(int index) {
+        Item updItem = incompleteItemsList.get(index);
+        updItem.isCompleted = true;
+        viewModel.updateItem(updItem);
     }
 }

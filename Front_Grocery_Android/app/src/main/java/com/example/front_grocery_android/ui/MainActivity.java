@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         viewModel.init();
         //TODO: auto start list activity with last list id from device memory
+        //TODO: lock vertical
+        //TODO: lock light mode
+        //TODO: add languages
 
         imageButtonHelp = findViewById(R.id.imageButtonHelp);
         buttonGoToList = findViewById(R.id.button_go_to_list);
@@ -89,42 +92,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(toList);
             }
         });
-    }
-
-    public void basicReadWrite() {
-        // [START write_message]
-        final String TAG = "MainActivity";
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        Log.d(TAG, "Firebase " + database);
-        Log.d(TAG, "Firebase " + myRef);
-        Log.d(TAG, "Firebase " + database.getReference());
-        Log.d(TAG, "Firebase " + database.getApp());
-        Log.d(TAG, "Firebase " + myRef.getKey());
-        Log.d(TAG, "Firebase " + myRef.getRoot());
-
-        //myRef.setValue("Hello, World!");
-        // [END write_message]
-
-        // [START read_message]
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                Lists value = dataSnapshot.getValue(Lists.class);
-                Log.d(TAG, "Value is: " + value.getBody().get(1).description);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w(TAG, "Failed to read value.", error.toException());
-            }
-        });
-        // [END read_message]
     }
 
     public boolean checkIfListExists(int listId) {

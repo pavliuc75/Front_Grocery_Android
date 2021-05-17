@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.front_grocery_android.R;
@@ -16,12 +17,13 @@ import com.example.front_grocery_android.models.List;
 
 import java.util.ArrayList;
 
-public class CompletedItemsActivity extends AppCompatActivity {
+public class CompletedItemsActivity extends AppCompatActivity implements CompletedListAdapter.OnListCompleteItemClickListener {
 
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private List selectedList;
     private CompletedItemsActivityViewModel viewModel;
+    private ArrayList<Item> completedItems;
 
 
     @Override
@@ -49,21 +51,37 @@ public class CompletedItemsActivity extends AppCompatActivity {
 
             //recyclerView
             //TODO: check if empty and display label
+            //TODO: display in reverse order
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
-                        ArrayList<Item> completedItems = new ArrayList<>();
+                        completedItems = new ArrayList<>();
                         for (int i = 0; i < selectedList.items.size(); i++) {
                             if (selectedList.items.get(i).isCompleted)
                                 completedItems.add(selectedList.items.get(i));
                         }
                         if (!completedItems.isEmpty()) {
-                            CompletedListAdapter adapter = new CompletedListAdapter(completedItems);
+                            CompletedListAdapter adapter = new CompletedListAdapter(completedItems, this);
                             recyclerView.setAdapter(adapter);
+                        } else {
+                            Intent toListActivity = new Intent(this, ListActivity.class);
+                            startActivity(toListActivity);
                         }
                     }
                 }
             }
         });
+    }
+
+    @Override
+    public void onCompleteItemClick(int index) {
+        System.out.println("kek");
+    }
+
+    @Override
+    public void onIncompleteClick(int index) {
+        Item updItem = completedItems.get(index);
+        updItem.isCompleted = false;
+        viewModel.updateItem(updItem);
     }
 }

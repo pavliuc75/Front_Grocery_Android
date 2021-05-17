@@ -45,27 +45,31 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
         return items.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textViewItemTitle;
         private TextView textViewItemDescription;
-        private ImageButton imageButtonSetIncomplete;
+        private ImageButton imageButtonSetComplete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewItemTitle = itemView.findViewById(R.id.text_view_item_completed_title);
-            textViewItemDescription = itemView.findViewById(R.id.text_view_item_completed_description);
-            imageButtonSetIncomplete = itemView.findViewById(R.id.image_button_set_incompleted);
-            itemView.setOnClickListener(this);
-            imageButtonSetIncomplete.setOnClickListener(v -> {
-                System.out.println("lel");
+            textViewItemTitle = itemView.findViewById(R.id.text_view_item_complete_title);
+            textViewItemDescription = itemView.findViewById(R.id.text_view_item_incomplete_description);
+            imageButtonSetComplete = itemView.findViewById(R.id.image_button_set_complete);
+            imageButtonSetComplete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onCompleteClick(getAbsoluteAdapterPosition());
+                }
             });
-        }
+            itemView.setOnClickListener(new View.OnClickListener() {
 
-        @Override
-        public void onClick(View v) {
-            listener.onClick(getAbsoluteAdapterPosition());
-            System.out.println("lel");
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(getAbsoluteAdapterPosition());
+                }
+            });
+
         }
     }
 
@@ -100,6 +104,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     public interface OnListIncompleteItemClickListener {
-        void onClick(int index);
+        void onItemClick(int index);
+
+        void onCompleteClick(int index);
     }
 }
