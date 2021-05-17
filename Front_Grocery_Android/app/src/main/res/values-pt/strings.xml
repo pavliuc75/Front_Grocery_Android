@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopply</string>
+    <string name="welcome">Receber</string>
+    <string name="enter_the_list_id_below">Insira o ID da lista abaixo</string>
+    <string name="list_id">ID da lista</string>
+    <string name="go_to_list">Vá para a lista</string>
+    <string name="or_generate_a_new_list_instead">Ou, em vez disso, gere uma nova lista</string>
+    <string name="generate">Gerar</string>
+    <string name="main_help_text">Se você conhece o código de uma lista existente, insira-o no campo de entrada. Caso contrário, pressione o botão \"Gerar\" para criar uma nova lista.</string>
+    <string name="close_alert_text">Perto</string>
+    <string name="field_required">Este campo é obrigatório</string>
+    <string name="main_set_error_2">O valor deve estar entre 1000 e 9999</string>
+    <string name="main_set_error_3">Esta lista não existe</string>
+    <string name="add_item">Adicionar Item</string>
+    <string name="add">Adicionar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="required_field">Este campo é obrigatório</string>
+    <string name="shopply_list_id">ID da lista do Shopply</string>
+    <string name="list_id_coppied">ID da lista copiado para a área de transferência</string>
+    <string name="edit_item">Editar item</string>
+    <string name="save">Salve </string>
+    <string name="delete">Excluir</string>
+    <string name="loading">carregando...</string>
+    <string name="completed_items">Itens concluídos</string>
+    <string name="item">Item</string>
+    <string name="name_star">Nome*</string>
+    <string name="description">Descrição</string>
+    <string name="details">Detalhes</string>
+    <string name="qty">Qtd:</string>
+    <string name="wgt">Peso:</string>
+    <string name="change_list_description">Alterar a descrição da lista</string>
+    <string name="this_will_remove_all_items">Isso removerá todos os itens da lista atual e redefinirá a descrição da lista</string>
+    <string name="are_you_sure_wipe">Tem certeza de que deseja limpar a lista atual?</string>
+    <string name="wipe">Limpar</string>
+    <string name="no_description">Sem descrição</string>
+    <string name="list_description">Descrição da lista</string>
+    <string name="wipe_list_data">Limpe os dados da lista</string>
+    <string name="title_completed_items">Itens Concluídos</string>
+    <string name="title_settings">Definições</string>
+</resources>

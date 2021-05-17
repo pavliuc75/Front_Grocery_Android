@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO: auto start list activity with last list id from device memory
         //TODO: lock vertical
         //TODO: lock light mode
-        //TODO: add languages
+        //TODO: alert when no internet
 
         imageButtonHelp = findViewById(R.id.imageButtonHelp);
         buttonGoToList = findViewById(R.id.button_go_to_list);

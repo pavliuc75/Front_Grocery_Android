@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Shopply</string>
     <string name="welcome">Welcome</string>
     <string name="enter_the_list_id_below">Enter the list ID below</string>
@@ -6,12 +6,36 @@
     <string name="go_to_list">Go to list</string>
     <string name="or_generate_a_new_list_instead">Or, generate a new list instead</string>
     <string name="generate">Generate</string>
-    <string name="_2021_shopply">© 2021 Shopply</string>
-    <string name="logo">logo</string>
-    <string name="helpbutton">helpButton</string>
+    <string name="_2021_shopply" translatable="false">© 2021 Shopply</string>
     <string name="main_help_text">If you know the code to an existing list, enter it into the input field. Otherwise, press the \"Generate\" button to create a new list.</string>
     <string name="close_alert_text">Close</string>
     <string name="field_required">This field is required</string>
     <string name="main_set_error_2">The value should be between 1000 and 9999</string>
     <string name="main_set_error_3">This list does not exist</string>
+    <string name="add_item">Add item</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="required_field">This field is required</string>
+    <string name="shopply_list_id">Shopply list ID</string>
+    <string name="list_id_coppied">List ID copied to clipboard</string>
+    <string name="edit_item">Edit item</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="loading">loading...</string>
+    <string name="completed_items">Completed items</string>
+    <string name="item">Item</string>
+    <string name="description">Description</string>
+    <string name="name_star">Name*</string>
+    <string name="details">Details</string>
+    <string name="qty">Qty:</string>
+    <string name="wgt">Wgt:</string>
+    <string name="change_list_description">Change list description</string>
+    <string name="this_will_remove_all_items">This will remove all items from the current list and reset the list description</string>
+    <string name="are_you_sure_wipe">Are you sure that you want to wipe the current list?</string>
+    <string name="wipe">Wipe</string>
+    <string name="no_description">No description</string>
+    <string name="list_description">List description</string>
+    <string name="wipe_list_data">Wipe list data</string>
+    <string name="title_completed_items">Completed Items</string>
+    <string name="title_settings">Settings</string>
 </resources>

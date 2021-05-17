@@ -71,11 +71,11 @@ public class ListSettingsActivity extends AppCompatActivity {
 
             EditText editTextChangeDescription = dialogView.findViewById(R.id.edit_text_change_description);
 
-            builder.setTitle("Change list description");
-            builder.setPositiveButton("Change", (dialog, id) -> {
+            builder.setTitle(R.string.change_list_description);
+            builder.setPositiveButton(R.string.save, (dialog, id) -> {
                 viewModel.changeListDescription(editTextChangeDescription.getText().toString());
             });
-            builder.setNegativeButton("Cancel", (dialog, id) -> {
+            builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
 
             });
 
@@ -93,8 +93,8 @@ public class ListSettingsActivity extends AppCompatActivity {
         //help button
         imageButtonHelp.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("This will remove all items from the current list and reset the list description");
-            builder.setNegativeButton("Close", (dialog, id) -> {
+            builder.setMessage(R.string.this_will_remove_all_items);
+            builder.setNegativeButton(getString(R.string.close_alert_text), (dialog, id) -> {
             });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -103,10 +103,10 @@ public class ListSettingsActivity extends AppCompatActivity {
         //wipe button
         buttonWipe.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Are you sure that you want to wipe the current list?");
-            builder.setNegativeButton("Cancel", (dialog, id) -> {
+            builder.setMessage(R.string.are_you_sure_wipe);
+            builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
             });
-            builder.setPositiveButton("Wipe", (dialog, id) -> {
+            builder.setPositiveButton(R.string.wipe, (dialog, id) -> {
                 viewModel.wipeList();
             });
             AlertDialog dialog = builder.create();
@@ -118,7 +118,7 @@ public class ListSettingsActivity extends AppCompatActivity {
         if (!StringUtils.isEmpty(selectedList.description)) {
             textViewListDescriptionSettings.setText(selectedList.description);
         } else {
-            textViewListDescriptionSettings.setText("No description");
+            textViewListDescriptionSettings.setText(getString(R.string.no_description));
         }
     }
 }

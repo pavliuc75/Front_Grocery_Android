@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Шоппли</string>
+    <string name="welcome">Привет</string>
+    <string name="enter_the_list_id_below">Введите ID списка ниже</string>
+    <string name="list_id">ID списка</string>
+    <string name="go_to_list">Перейти к списку</string>
+    <string name="or_generate_a_new_list_instead">Или создать новый список вместо</string>
+    <string name="generate">Генерировать</string>
+    <string name="main_help_text">Если вы знаете код существующего списка, введите его в поле ввода. В противном случае нажмите кнопку «Создать», чтобы создать новый список.</string>
+    <string name="close_alert_text">Закрывать</string>
+    <string name="field_required">Это поле обязательно к заполнению</string>
+    <string name="main_set_error_2">Значение должно быть от 1000 до 9999.</string>
+    <string name="main_set_error_3">Этот список не существует</string>
+    <string name="add_item">Добавить элемент</string>
+    <string name="add">Добавить</string>
+    <string name="cancel">Отмена</string>
+    <string name="required_field">Это поле обязательно к заполнению</string>
+    <string name="shopply_list_id">ID списка Шоппли</string>
+    <string name="list_id_coppied">Идентификатор списка скопирован в буфер обмена</string>
+    <string name="edit_item">Редактировать элемент</string>
+    <string name="save">Сохранить</string>
+    <string name="delete">Удалить</string>
+    <string name="loading">загрузка ...</string>
+    <string name="completed_items">Завершенные предметы</string>
+    <string name="item">Элемент</string>
+    <string name="description">Описание</string>
+    <string name="name_star">Имя*</string>
+    <string name="details">Подробности</string>
+    <string name="qty">Кол-во:</string>
+    <string name="wgt">Вес:</string>
+    <string name="change_list_description">Изменить описание списка</string>
+    <string name="this_will_remove_all_items">Это удалит все элементы из текущего списка и сбросит описание списка.</string>
+    <string name="are_you_sure_wipe">Вы уверены, что хотите стереть текущий список?</string>
+    <string name="wipe">Вытирать</string>
+    <string name="no_description">Без описания</string>
+    <string name="list_description">Описание списка</string>
+    <string name="wipe_list_data">Удалить данные</string>
+    <string name="title_completed_items">Завершенные предметы</string>
+    <string name="title_settings">Настройки</string>
+</resources>

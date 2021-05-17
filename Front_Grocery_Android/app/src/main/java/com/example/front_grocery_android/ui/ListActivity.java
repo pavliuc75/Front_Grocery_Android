@@ -135,7 +135,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_add_item, null);
             builder.setView(dialogView);
-            builder.setTitle("Add item");
+            builder.setTitle(R.string.add_item);
 
             AtomicInteger qty = new AtomicInteger(1);
             AtomicReference<String> unit = new AtomicReference<>("g");
@@ -160,12 +160,12 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             });
 
 
-            builder.setPositiveButton("Add",
+            builder.setPositiveButton(R.string.add,
                     (dialog, which) -> {
                         //Do nothing here because we override this button later to change the close behaviour.
                     });
 
-            builder.setNegativeButton("Cancel", (dialog, id) -> {
+            builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
             });
 
             AlertDialog dialog = builder.create();
@@ -173,7 +173,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
                 if (StringUtils.isEmpty(editTextAddItemName.getText().toString())) {
-                    editTextAddItemName.setError("This field is required");
+                    editTextAddItemName.setError(getString(R.string.required_field));
                 } else {
                     Item newItem = new Item();
                     newItem.name = editTextAddItemName.getText().toString();
@@ -208,9 +208,9 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         //TODO: mby share button instead
         imageButtonCopy.setOnClickListener(v -> {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("Shopply list ID", String.valueOf(viewModel.getSelectedListId()));
+            ClipData clip = ClipData.newPlainText(getString(R.string.shopply_list_id), String.valueOf(viewModel.getSelectedListId()));
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(this, "List ID copied to clipboard", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.list_id_coppied), Toast.LENGTH_SHORT).show();
         });
 
         //toCompletedItemsList
@@ -236,7 +236,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.alert_add_item, null);
         builder.setView(dialogView);
-        builder.setTitle("Edit item");
+        builder.setTitle(R.string.edit_item);
 
         AtomicInteger qty = new AtomicInteger(updItem.quantity);
         AtomicReference<String> unit = new AtomicReference<>(updItem.unit);
@@ -278,15 +278,15 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         editTextAddItemDetails.setText(updItem.details);
         editTextAddItemWeight.setText(Double.toString(updItem.weight));
 
-        builder.setPositiveButton("Save",
+        builder.setPositiveButton(R.string.save,
                 (dialog, which) -> {
                     //Do nothing here because we override this button later to change the close behaviour.
                 });
 
-        builder.setNegativeButton("Cancel", (dialog, id) -> {
+        builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
         });
 
-        builder.setNeutralButton("Delete", (dialog, id) -> {
+        builder.setNeutralButton(R.string.delete, (dialog, id) -> {
             viewModel.deleteItem(updItem);
         });
 
@@ -295,7 +295,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
             if (StringUtils.isEmpty(editTextAddItemName.getText().toString())) {
-                editTextAddItemName.setError("This field is required");
+                editTextAddItemName.setError(getString(R.string.required_field));
             } else {
                 updItem.name = editTextAddItemName.getText().toString();
                 updItem.details = editTextAddItemDetails.getText().toString();

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopply</string>
+    <string name="welcome">Bun venit</string>
+    <string name="enter_the_list_id_below">Introduceți ID-ul listei mai jos</string>
+    <string name="list_id">ID listă</string>
+    <string name="go_to_list">Accesați lista</string>
+    <string name="or_generate_a_new_list_instead">Sau, generați o listă nouă</string>
+    <string name="generate">Genereaza</string>
+    <string name="main_help_text">Dacă cunoașteți codul unei liste existente, introduceți-l în câmpul de introducere. În caz contrar, apăsați butonul „Generați” pentru a crea o nouă listă.</string>
+    <string name="close_alert_text">Închide</string>
+    <string name="field_required">Acest câmp este obligatoriu</string>
+    <string name="main_set_error_2">Valoarea trebuie să fie între 1000 și 9999</string>
+    <string name="main_set_error_3">Această listă nu există</string>
+    <string name="add_item">Adaugare element</string>
+    <string name="add">Adăuga</string>
+    <string name="cancel">Anulare</string>
+    <string name="required_field">Acest câmp este obligatoriu</string>
+    <string name="shopply_list_id">ID-ul listei de cumpărături</string>
+    <string name="list_id_coppied">ID-ul listei a fost copiat în clipboard</string>
+    <string name="edit_item">Editați elementul</string>
+    <string name="save">Salvați</string>
+    <string name="delete">Șterge</string>
+    <string name="loading">Se încarcă...</string>
+    <string name="completed_items">Elemente finalizate</string>
+    <string name="item">Element</string>
+    <string name="description">Descriere</string>
+    <string name="name_star">Nume*</string>
+    <string name="details">Detalii</string>
+    <string name="qty">Cant:</string>
+    <string name="wgt">Greut:</string>
+    <string name="change_list_description">Schimbați descrierea listei</string>
+    <string name="this_will_remove_all_items">Aceasta va elimina toate articolele din lista curentă și va reseta descrierea listei</string>
+    <string name="are_you_sure_wipe">Sigur doriți să ștergeți lista curentă?</string>
+    <string name="wipe">Sterge</string>
+    <string name="no_description">fără descriere</string>
+    <string name="list_description">Descrierea listei</string>
+    <string name="wipe_list_data">Ștergeți datele listei</string>
+    <string name="title_completed_items">Articole finalizate</string>
+    <string name="title_settings">Setări</string>
+</resources>

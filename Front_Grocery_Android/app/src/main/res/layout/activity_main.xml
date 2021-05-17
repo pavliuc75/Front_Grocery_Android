@@ -28,8 +28,7 @@
         android:background="@null"
         android:src="@drawable/ic_baseline_help_outline_24"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/helpbutton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -123,7 +122,6 @@
         app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@mipmap/logo_big"
-        android:contentDescription="@string/logo" />
+        app:srcCompat="@mipmap/logo_big" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
