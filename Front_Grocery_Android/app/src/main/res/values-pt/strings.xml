@@ -16,7 +16,7 @@
     <string name="add">Adicionar</string>
     <string name="cancel">Cancelar</string>
     <string name="required_field">Este campo é obrigatório</string>
-    <string name="shopply_list_id">ID da lista do Shopply</string>
+    <string name="shopply_list_id">"ID da lista do Shopply: "</string>
     <string name="list_id_coppied">ID da lista copiado para a área de transferência</string>
     <string name="edit_item">Editar item</string>
     <string name="save">Salve </string>

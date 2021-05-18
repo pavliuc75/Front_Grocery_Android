@@ -16,7 +16,7 @@
     <string name="add">Добавить</string>
     <string name="cancel">Отмена</string>
     <string name="required_field">Это поле обязательно к заполнению</string>
-    <string name="shopply_list_id">ID списка Шоппли</string>
+    <string name="shopply_list_id">"ID списка Шоппли: "</string>
     <string name="list_id_coppied">Идентификатор списка скопирован в буфер обмена</string>
     <string name="edit_item">Редактировать элемент</string>
     <string name="save">Сохранить</string>

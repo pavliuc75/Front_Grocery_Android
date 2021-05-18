@@ -16,7 +16,7 @@
     <string name="add">Adăuga</string>
     <string name="cancel">Anulare</string>
     <string name="required_field">Acest câmp este obligatoriu</string>
-    <string name="shopply_list_id">ID-ul listei de cumpărături</string>
+    <string name="shopply_list_id">"ID-ul listei de cumpărături: "</string>
     <string name="list_id_coppied">ID-ul listei a fost copiat în clipboard</string>
     <string name="edit_item">Editați elementul</string>
     <string name="save">Salvați</string>

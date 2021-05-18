@@ -2,29 +2,20 @@ package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ActivityOptions;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.models.Item;
@@ -36,8 +27,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -48,7 +37,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
     private FloatingActionButton fabAdd;
     private ImageButton imageButtonSettings;
     private ImageButton imageButtonSwitch;
-    private ImageButton imageButtonCopy;
+    private ImageButton imageButtonShare;
     private TextView textViewDescription;
     private List selectedList;
     private ArrayList<Item> incompleteItemsList;
@@ -65,7 +54,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         fabAdd = findViewById(R.id.fab_add);
         imageButtonSettings = findViewById(R.id.imageButtonSettings);
         imageButtonSwitch = findViewById(R.id.imageButtonSwitch);
-        imageButtonCopy = findViewById(R.id.image_button_copy);
+        imageButtonShare = findViewById(R.id.image_button_share);
         textViewDescription = findViewById(R.id.text_view_description);
         buttonToCompletedItems = findViewById(R.id.button_to_completed_items);
         recyclerView = findViewById(R.id.recycler_view);
@@ -218,13 +207,14 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             startActivity(toMain);
         });
 
-        //copyId
-        //TODO: mby share button instead
-        imageButtonCopy.setOnClickListener(v -> {
-            ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText(getString(R.string.shopply_list_id), String.valueOf(viewModel.getSelectedListId()));
-            clipboard.setPrimaryClip(clip);
-            Toast.makeText(this, getString(R.string.list_id_coppied), Toast.LENGTH_SHORT).show();
+        //share
+        imageButtonShare.setOnClickListener(v -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.shopply_list_id) + " " + viewModel.getSelectedListId());
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         });
 
         //toCompletedItemsList
