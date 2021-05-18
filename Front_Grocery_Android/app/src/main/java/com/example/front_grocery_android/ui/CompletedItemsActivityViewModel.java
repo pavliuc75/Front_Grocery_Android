@@ -18,13 +18,11 @@ public class CompletedItemsActivityViewModel extends ViewModel {
     }
 
     //local list id label
-
     public int getSelectedListId() {
         return listsRepository.getSelectedListId();
     }
 
     //firebase data
-
     public LiveData<Lists> getLists() {
         return listsRepository.getLists();
     }

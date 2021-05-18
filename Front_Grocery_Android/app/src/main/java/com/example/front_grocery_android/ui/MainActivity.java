@@ -35,6 +35,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //TODO:testing
+    //TODO:boundaries for list id
+    //TODO:generated list should go to mem
     private MainActivityViewModel viewModel;
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;

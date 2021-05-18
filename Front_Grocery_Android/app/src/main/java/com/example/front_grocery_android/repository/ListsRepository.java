@@ -153,7 +153,7 @@ public class ListsRepository {
             if (index != -1) {
                 List list = new List();
                 list.id = selectedListId;
-                list.description = "My shopping list";
+                list.description = "";
                 list.items = new ArrayList<>();
                 myRef.child("lists").child(String.valueOf(index)).setValue(list);
             }

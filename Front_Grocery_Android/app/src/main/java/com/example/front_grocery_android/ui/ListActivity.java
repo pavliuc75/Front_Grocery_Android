@@ -10,12 +10,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.models.Item;
@@ -27,6 +30,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -44,6 +48,11 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
     private MaterialButton buttonToCompletedItems;
     private RecyclerView recyclerView;
     private TextView emptyView;
+    private ImageButton imageButtonSort;
+    private ListAdapter adapter;
+    private String sortByMode;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,13 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.hasFixedSize();
         emptyView = findViewById(R.id.empty_view);
+        imageButtonSort = findViewById(R.id.image_button_sort);
+        sortByMode = "";
+        preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+
+        //sortBy preferences
+        sortByMode = preferences.getString("sortBy", "a_z"); //a_z is the default value
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
@@ -82,7 +98,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             }
 
             //recyclerView
-            //TODO: display in reverse order
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
@@ -94,7 +109,16 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         if (!incompleteItemsList.isEmpty()) {
                             recyclerView.setVisibility(View.VISIBLE);
                             emptyView.setVisibility(View.GONE);
-                            ListAdapter adapter = new ListAdapter(incompleteItemsList, this);
+                            if (sortByMode.equals("a_z")) {
+                                Collections.sort(incompleteItemsList, Item.AZComparator);
+                            } else if (sortByMode.equals("z_a")) {
+                                Collections.sort(incompleteItemsList, Item.ZAComparator);
+                            } else if (sortByMode.equals("new_old")) {
+                                Collections.sort(incompleteItemsList, Item.NewOldComparator);
+                            } else if (sortByMode.equals("old_new")) {
+                                Collections.sort(incompleteItemsList, Item.OldNewComparator);
+                            }
+                            adapter = new ListAdapter(incompleteItemsList, this);
                             recyclerView.setAdapter(adapter);
                         } else {
                             recyclerView.setVisibility(View.GONE);
@@ -113,7 +137,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                 emptyView.setVisibility(View.VISIBLE);
             }
 
-            //toCompletedListButton
+            //toCompletedListButtonStatus
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
@@ -122,9 +146,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                             if (selectedList.items.get(i).isCompleted)
                                 completeItemsList.add(selectedList.items.get(i));
                         }
-                        if (!completeItemsList.isEmpty()) {
-                            buttonToCompletedItems.setEnabled(true);
-                        }
+                        buttonToCompletedItems.setEnabled(!completeItemsList.isEmpty());
                     }
                 }
             }
@@ -133,6 +155,66 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         //set list id label
         String listId = String.valueOf(viewModel.getSelectedListId());
         textViewListId.setText(listId);
+
+        //list sort by
+        imageButtonSort.setOnClickListener(v -> {
+            PopupMenu sortByPopupMenu = new PopupMenu(this, imageButtonSort);
+            sortByPopupMenu.getMenuInflater().inflate(R.menu.sort_by_menu, sortByPopupMenu.getMenu());
+            if (sortByMode.equals("a_z")) {
+                sortByPopupMenu.getMenu().findItem(R.id.a_z).setEnabled(false);
+            } else if (sortByMode.equals("z_a")) {
+                sortByPopupMenu.getMenu().findItem(R.id.z_a).setEnabled(false);
+            } else if (sortByMode.equals("new_old")) {
+                sortByPopupMenu.getMenu().findItem(R.id.new_old).setEnabled(false);
+            } else if (sortByMode.equals("old_new")) {
+                sortByPopupMenu.getMenu().findItem(R.id.old_new).setEnabled(false);
+            }
+            sortByPopupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.a_z) {
+                    if (incompleteItemsList != null) {
+                        sortByMode = "a_z";
+                        editor.putString("sortBy", sortByMode);
+                        editor.apply();
+                        Collections.sort(incompleteItemsList, Item.AZComparator);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(this, "Sort A to Z", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.z_a) {
+                    if (incompleteItemsList != null) {
+                        sortByMode = "z_a";
+                        editor.putString("sortBy", sortByMode);
+                        editor.apply();
+                        Collections.sort(incompleteItemsList, Item.ZAComparator);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(this, "Sort Z to A", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.new_old) {
+                    if (incompleteItemsList != null) {
+                        sortByMode = "new_old";
+                        editor.putString("sortBy", sortByMode);
+                        editor.apply();
+                        Collections.sort(incompleteItemsList, Item.NewOldComparator);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(this, "Newest first", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                } else if (item.getItemId() == R.id.old_new) {
+                    if (incompleteItemsList != null) {
+                        sortByMode = "old_new";
+                        editor.putString("sortBy", sortByMode);
+                        editor.apply();
+                        Collections.sort(incompleteItemsList, Item.OldNewComparator);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(this, "Oldest first", Toast.LENGTH_SHORT).show();
+                    }
+                    return true;
+                }
+                return true;
+            });
+            sortByPopupMenu.show();
+        });
 
         //add item
         fabAdd.setOnClickListener(v -> {
@@ -315,6 +397,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         });
     }
 
+    //set item as completed
     @Override
     public void onCompleteClick(int index) {
         Item updItem = incompleteItemsList.get(index);
