@@ -11,14 +11,19 @@
         android:theme="@style/Theme.Front_Grocery_Android">
         <activity
             android:name=".ui.ListSettingsActivity"
-            android:parentActivityName=".ui.ListActivity" />
+            android:parentActivityName=".ui.ListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.CompletedItemsActivity"
-            android:parentActivityName=".ui.ListActivity" />
+            android:parentActivityName=".ui.ListActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.ListActivity"
-            android:parentActivityName=".ui.MainActivity" />
-        <activity android:name=".ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

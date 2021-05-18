@@ -2,6 +2,7 @@ package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -38,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        //disable night mode globally
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
@@ -52,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, ListActivity.class));
             finish();
         }
-
-        //TODO: auto start list activity with last list id from device memory
+        
         //TODO: lock vertical
         //TODO: lock light mode
         //TODO: alert when no internet
