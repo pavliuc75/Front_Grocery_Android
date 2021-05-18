@@ -17,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -42,7 +43,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ListActivity extends AppCompatActivity implements ListAdapter.OnListIncompleteItemClickListener {
 
-    //TODO: mby transform some child activities to fragments
     private ListActivityViewModel viewModel;
     private TextView textViewListId;
     private FloatingActionButton fabAdd;
@@ -176,7 +176,9 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             builder.setNegativeButton(R.string.cancel, (dialog, id) -> {
             });
 
+            editTextAddItemName.requestFocus();
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             dialog.show();
 
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
@@ -197,7 +199,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                     dialog.dismiss();
                 }
             });
-            //TODO:autofocus+keyboard
         });
 
         //settings
@@ -322,7 +323,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                 dialog.dismiss();
             }
         });
-        //TODO:autofocus+keyboard
     }
 
     @Override

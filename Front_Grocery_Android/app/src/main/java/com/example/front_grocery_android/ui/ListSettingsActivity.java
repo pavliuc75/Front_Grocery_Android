@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -84,10 +85,12 @@ public class ListSettingsActivity extends AppCompatActivity {
                 defaultText = selectedList.description;
             }
             editTextChangeDescription.setText(defaultText);
+            editTextChangeDescription.requestFocus();
+            editTextChangeDescription.setSelection(editTextChangeDescription.getText().length());
 
             AlertDialog dialog = builder.create();
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             dialog.show();
-            //TODO:autofocus+keyboard
         });
 
         //help button
