@@ -36,6 +36,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //TODO:testing
+    //TODO:git readme
     private MainActivityViewModel viewModel;
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;

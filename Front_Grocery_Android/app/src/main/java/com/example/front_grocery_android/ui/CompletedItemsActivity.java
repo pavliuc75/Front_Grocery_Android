@@ -59,7 +59,6 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
             }
 
             //recyclerView
-            //TODO: display in reverse order
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
@@ -164,7 +163,6 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
                 dialog.dismiss();
             }
         });
-        //TODO:autofocus+keyboard
     }
 
     @Override
