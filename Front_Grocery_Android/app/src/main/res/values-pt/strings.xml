@@ -39,4 +39,9 @@
     <string name="title_completed_items">Itens Concluídos</string>
     <string name="title_settings">Definições</string>
     <string name="no_internet">Sem ligação à Internet. Por favor, reconecte e reinicie o aplicativo</string>
+    <string name="secret_text">Você chegou ao fim. Experimente uma lista existente entre 1000 e 9999</string>
+    <string name="newest_first">Os mais novos primeiro</string>
+    <string name="oldest_first">Mais velhos primeiro</string>
+    <string name="a_z">A - Z</string>
+    <string name="z_a">Z - A</string>
 </resources>

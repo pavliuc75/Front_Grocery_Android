@@ -177,7 +177,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         editor.apply();
                         Collections.sort(incompleteItemsList, Item.AZComparator);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(this, "Sort A to Z", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 } else if (item.getItemId() == R.id.z_a) {
@@ -187,7 +186,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         editor.apply();
                         Collections.sort(incompleteItemsList, Item.ZAComparator);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(this, "Sort Z to A", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 } else if (item.getItemId() == R.id.new_old) {
@@ -197,7 +195,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         editor.apply();
                         Collections.sort(incompleteItemsList, Item.NewOldComparator);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(this, "Newest first", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 } else if (item.getItemId() == R.id.old_new) {
@@ -207,7 +204,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                         editor.apply();
                         Collections.sort(incompleteItemsList, Item.OldNewComparator);
                         adapter.notifyDataSetChanged();
-                        Toast.makeText(this, "Oldest first", Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }

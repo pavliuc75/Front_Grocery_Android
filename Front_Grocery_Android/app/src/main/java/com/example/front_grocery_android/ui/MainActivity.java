@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
 import com.example.front_grocery_android.models.Item;
@@ -35,14 +36,15 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //TODO:testing
-    //TODO:boundaries for list id
-    //TODO:generated list should go to mem
+    //TODO: refresh
     private MainActivityViewModel viewModel;
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;
     private Button buttonGenerate;
     private EditText editTextListId;
     private Lists listsScoped;
+    SharedPreferences.Editor editor;
+    SharedPreferences preferences;
 
 
     @Override
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         buttonGoToList = findViewById(R.id.button_go_to_list);
         buttonGenerate = findViewById(R.id.button_generate);
         editTextListId = findViewById(R.id.editText_list_id);
+        preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
 
         //no internet
         if (!isNetworkConnected()) {
@@ -72,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //read shared preferences
-        SharedPreferences preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
         int localId = preferences.getInt("id", -1); //-1 is the default value.
         if (localId != -1 && isNetworkConnected()) {
             viewModel.setSelectedListId(localId);
@@ -109,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
                 viewModel.setSelectedListId(Integer.parseInt(editTextListId.getText().toString()));
 
                 //save shared preferences
-                SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
                 editor.putInt("id", viewModel.getSelectedListId());
                 editor.apply();
 
@@ -121,10 +123,16 @@ public class MainActivity extends AppCompatActivity {
         buttonGenerate.setOnClickListener(v -> {
             if (listsScoped != null) {
                 int lastListId = listsScoped.getBody().get(listsScoped.lists.size() - 1).id;
-                viewModel.setSelectedListId(lastListId + 1);
-                viewModel.generateNewList(viewModel.getSelectedListId());
-                Intent toList = new Intent(this, ListActivity.class);
-                startActivity(toList);
+                if (lastListId <= 9998) {
+                    viewModel.setSelectedListId(lastListId + 1);
+                    viewModel.generateNewList(viewModel.getSelectedListId());
+                    editor.putInt("id", viewModel.getSelectedListId());
+                    editor.apply();
+                    Intent toList = new Intent(this, ListActivity.class);
+                    startActivity(toList);
+                } else {
+                    Toast.makeText(this, R.string.secret_text, Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

@@ -39,4 +39,9 @@
     <string name="title_completed_items">Articole finalizate</string>
     <string name="title_settings">Setări</string>
     <string name="no_internet">Fără conexiune internet. Vă rugăm să vă reconectați și să reporniți aplicația</string>
+    <string name="secret_text">Ai ajuns la final. Încercați și lista existentă între 1000 și 9999</string>
+    <string name="newest_first">Cel mai nou primul</string>
+    <string name="oldest_first">Cei mai in varsta primii</string>
+    <string name="a_z">A - Z</string>
+    <string name="z_a">Z - A</string>
 </resources>
