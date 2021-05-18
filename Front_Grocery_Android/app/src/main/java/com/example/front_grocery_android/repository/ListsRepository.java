@@ -40,7 +40,6 @@ public class ListsRepository {
     }
 
     //firebase data
-    //TODO: replace sending the entire list back with individual parts
     public ListsLiveData getLists() {
         return lists;
     }
@@ -57,49 +56,57 @@ public class ListsRepository {
             newList.description = "My shopping list";
             newList.items = new ArrayList<>();
             lists.add(newList);
-            saveLists(lists);
+            myRef.child("lists").setValue(lists);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void updateItem(Item updItem) {
+        int index = -1;
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
             List listToBeUpdated = new List();
             for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == getSelectedListId())
-                    listToBeUpdated = lists.get(i);
-            }
-            for (int i = 0; i < listToBeUpdated.items.size(); i++) {
-                if (listToBeUpdated.items.get(i).id == updItem.id) {
-                    listToBeUpdated.items.get(i).name = updItem.name;
-                    listToBeUpdated.items.get(i).isCompleted = updItem.isCompleted;
-                    listToBeUpdated.items.get(i).unit = updItem.unit;
-                    listToBeUpdated.items.get(i).weight = updItem.weight;
-                    listToBeUpdated.items.get(i).quantity = updItem.quantity;
-                    listToBeUpdated.items.get(i).details = updItem.details;
+                if (lists.get(i).id == getSelectedListId()) {
+                    index = i;
+                    listToBeUpdated = lists.get(index);
                     break;
                 }
             }
-            for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == getSelectedListId()) {
-                    lists.get(i).items = listToBeUpdated.items;
+
+            ArrayList<Item> items = listToBeUpdated.items;
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).id == updItem.id) {
+                    items.get(i).unit = updItem.unit;
+                    items.get(i).isCompleted = updItem.isCompleted;
+                    items.get(i).name = updItem.name;
+                    items.get(i).details = updItem.details;
+                    items.get(i).quantity = updItem.quantity;
+                    items.get(i).weight = updItem.weight;
+                    break;
                 }
             }
-            saveLists(lists);
+
+            if (index != -1) {
+                myRef.child("lists").child(String.valueOf(index)).child("items").setValue(items);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void deleteItem(Item item) {
+        int index = -1;
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
             List listToBeUpdated = new List();
             for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == getSelectedListId())
-                    listToBeUpdated = lists.get(i);
+                if (lists.get(i).id == getSelectedListId()) {
+                    index = i;
+                    listToBeUpdated = lists.get(index);
+                    break;
+                }
             }
             for (int i = 0; i < listToBeUpdated.items.size(); i++) {
                 if (listToBeUpdated.items.get(i).id == item.id) {
@@ -107,75 +114,82 @@ public class ListsRepository {
                     break;
                 }
             }
-            for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == getSelectedListId()) {
-                    lists.get(i).items = listToBeUpdated.items;
-                }
+            if (index != -1) {
+                myRef.child("lists").child(String.valueOf(index)).child("items").setValue(listToBeUpdated.items);
             }
-            saveLists(lists);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void changeListDescription(String newDescription) {
+        int index = -1;
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
             for (int i = 0; i < lists.size(); i++) {
                 if (selectedListId == lists.get(i).id) {
-                    lists.get(i).description = newDescription;
+                    index = i;
+                    break;
                 }
             }
-            saveLists(lists);
+            if (index != -1) {
+                myRef.child("lists").child(String.valueOf(index)).child("description").setValue(newDescription);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void wipeList() {
+        int index = -1;
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
             for (int i = 0; i < lists.size(); i++) {
                 if (selectedListId == lists.get(i).id) {
-                    lists.get(i).description = "My shopping list";
-                    lists.get(i).items = new ArrayList<>();
+                    index = i;
+                    break;
                 }
             }
-            saveLists(lists);
+            if (index != -1) {
+                List list = new List();
+                list.id = selectedListId;
+                list.description = "My shopping list";
+                list.items = new ArrayList<>();
+                myRef.child("lists").child(String.valueOf(index)).setValue(list);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void addItemToList(Item item) {
+        int index = -1;
         try {
             ArrayList<List> lists = this.lists.getValue().lists;
-            ArrayList<Item> itemsScoped = null;
+            List listToBeUpdated = new List();
             for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == selectedListId) {
-                    itemsScoped = lists.get(i).items;
+                if (lists.get(i).id == getSelectedListId()) {
+                    index = i;
+                    listToBeUpdated = lists.get(index);
                     break;
                 }
             }
 
-            if (itemsScoped == null) {
-                itemsScoped = new ArrayList<>();
+            ArrayList<Item> items = listToBeUpdated.items;
+            if (items == null) {
+                items = new ArrayList<>();
             }
-            if (itemsScoped.isEmpty()) {
+            if (items.isEmpty()) {
                 item.id = 0;
             } else {
-                item.id = itemsScoped.get(itemsScoped.size() - 1).id + 1;
+                item.id = items.get(items.size() - 1).id + 1;
             }
 
-            itemsScoped.add(item);
-            for (int i = 0; i < lists.size(); i++) {
-                if (lists.get(i).id == selectedListId) {
-                    lists.get(i).items = itemsScoped;
-                    break;
-                }
-            }
+            items.add(item);
 
-            saveLists(lists);
+            if (index != -1) {
+                myRef.child("lists").child(String.valueOf(index)).child("items").setValue(items);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

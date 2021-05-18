@@ -35,10 +35,6 @@ public class MainActivityViewModel extends ViewModel {
         return listsRepository.getLists();
     }
 
-    public void saveLists(ArrayList<List> lists) {
-        listsRepository.saveLists(lists);
-    }
-
     public void generateNewList(int listId) {
         listsRepository.generateNewList(listId);
     }

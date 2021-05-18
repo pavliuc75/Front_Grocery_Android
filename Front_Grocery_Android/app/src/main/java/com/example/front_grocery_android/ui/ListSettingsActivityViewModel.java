@@ -17,25 +17,13 @@ public class ListSettingsActivityViewModel extends ViewModel {
     }
 
     //local list id label
-    public void setSelectedListId(int listId) {
-        listsRepository.setSelectedListId(listId);
-    }
-
     public int getSelectedListId() {
         return listsRepository.getSelectedListId();
     }
 
     //firebase data
-    public void init() {
-        listsRepository.init();
-    }
-
     public LiveData<Lists> getLists() {
         return listsRepository.getLists();
-    }
-
-    public void saveLists(ArrayList<List> lists) {
-        listsRepository.saveLists(lists);
     }
 
     public void changeListDescription(String newDescription) {
