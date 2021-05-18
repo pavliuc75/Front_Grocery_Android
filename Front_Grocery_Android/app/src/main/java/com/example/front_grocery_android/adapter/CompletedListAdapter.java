@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
 
     ArrayList<Item> items;
     OnListCompleteItemClickListener listener;
+    private final static int FADE_DURATION = 250;
 
     public CompletedListAdapter(ArrayList<Item> items, OnListCompleteItemClickListener listener) {
         this.items = items;
@@ -36,6 +38,13 @@ public class CompletedListAdapter extends RecyclerView.Adapter<CompletedListAdap
     @Override
     public void onBindViewHolder(@NonNull CompletedListAdapter.ViewHolder holder, int position) {
         holder.textViewItemCompletedTitle.setText(items.get(position).name);
+        setFadeAnimation(holder.itemView);
+    }
+
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 
     @Override

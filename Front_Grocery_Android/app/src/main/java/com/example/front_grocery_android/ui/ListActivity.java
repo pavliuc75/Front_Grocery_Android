@@ -77,6 +77,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             //recyclerView
             //TODO: check if empty and display label
             //TODO: display in reverse order
+            //TODO: animation
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {

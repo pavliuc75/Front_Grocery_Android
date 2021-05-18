@@ -1,8 +1,13 @@
 package com.example.front_grocery_android.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -20,6 +25,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
 
     ArrayList<Item> items;
     OnListIncompleteItemClickListener listener;
+    private final static int FADE_DURATION = 250;
 
     public ListAdapter(ArrayList<Item> items, OnListIncompleteItemClickListener listener) {
         this.items = items;
@@ -38,6 +44,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ListAdapter.ViewHolder holder, int position) {
         holder.textViewItemTitle.setText(items.get(position).name);
         holder.textViewItemDescription.setText(getDescription(position));
+        setFadeAnimation(holder.itemView);
+    }
+
+    private void setFadeAnimation(View view) {
+        AlphaAnimation anim = new AlphaAnimation(0.0f, 1.0f);
+        anim.setDuration(FADE_DURATION);
+        view.startAnimation(anim);
     }
 
     @Override
