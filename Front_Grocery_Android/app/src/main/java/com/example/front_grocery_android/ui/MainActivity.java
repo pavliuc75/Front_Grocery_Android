@@ -36,7 +36,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //TODO:testing
-    //TODO: refresh
     private MainActivityViewModel viewModel;
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;
@@ -98,6 +97,16 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         });
+
+        //set last list id when activity called from list activity
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null && bundle.containsKey("listId")) {
+            int listId = bundle.getInt("listId");
+            editTextListId.setText(String.valueOf(listId));
+            editTextListId.requestFocus();
+            editTextListId.setSelection(editTextListId.getText().length());
+        }
+
 
         //go to list button
         buttonGoToList.setOnClickListener(v -> {

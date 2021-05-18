@@ -27,6 +27,10 @@ public class ListActivityViewModel extends ViewModel {
         return listsRepository.getLists();
     }
 
+    public void init() {
+        listsRepository.init();
+    }
+
     public void addItemToList(Item item) {
         listsRepository.addItemToList(item);
     }

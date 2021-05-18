@@ -2,6 +2,7 @@ package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
     private String sortByMode;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ImageButton imageButtonRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         sortByMode = "";
         preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
         editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+        imageButtonRefresh = findViewById(R.id.image_button_refresh);
 
         //sortBy preferences
         sortByMode = preferences.getString("sortBy", "a_z"); //a_z is the default value
@@ -155,6 +158,12 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         //set list id label
         String listId = String.valueOf(viewModel.getSelectedListId());
         textViewListId.setText(listId);
+
+        //refresh (mby remove)
+        imageButtonRefresh.setOnClickListener(v -> {
+            viewModel.init();
+            this.recreate();
+        });
 
         //list sort by
         imageButtonSort.setOnClickListener(v -> {
@@ -290,6 +299,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             editor.apply();
 
             Intent toMain = new Intent(this, MainActivity.class);
+            toMain.putExtra("listId", viewModel.getSelectedListId());
             startActivity(toMain);
         });
 
