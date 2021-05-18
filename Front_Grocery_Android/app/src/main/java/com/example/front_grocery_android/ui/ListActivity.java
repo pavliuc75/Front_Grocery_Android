@@ -43,6 +43,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
     private ArrayList<Item> incompleteItemsList;
     private MaterialButton buttonToCompletedItems;
     private RecyclerView recyclerView;
+    private TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.hasFixedSize();
+        emptyView = findViewById(R.id.empty_view);
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
@@ -71,13 +73,16 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
             // description label
             if (selectedList != null) {
-                setDescriptionLabel();
+                if (!StringUtils.isEmpty(selectedList.description)) {
+                    textViewDescription.setText(selectedList.description);
+                    textViewDescription.setVisibility(View.VISIBLE);
+                } else {
+                    textViewDescription.setVisibility(View.GONE);
+                }
             }
 
             //recyclerView
-            //TODO: check if empty and display label
             //TODO: display in reverse order
-            //TODO: animation
             if (selectedList != null) {
                 if (selectedList.items != null) {
                     if (!selectedList.items.isEmpty()) {
@@ -87,23 +92,25 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
                                 incompleteItemsList.add(selectedList.items.get(i));
                         }
                         if (!incompleteItemsList.isEmpty()) {
+                            recyclerView.setVisibility(View.VISIBLE);
+                            emptyView.setVisibility(View.GONE);
                             ListAdapter adapter = new ListAdapter(incompleteItemsList, this);
                             recyclerView.setAdapter(adapter);
                         } else {
-                            ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
-                            recyclerView.setAdapter(adapter);
+                            recyclerView.setVisibility(View.GONE);
+                            emptyView.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
-                        recyclerView.setAdapter(adapter);
+                        recyclerView.setVisibility(View.GONE);
+                        emptyView.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
-                    recyclerView.setAdapter(adapter);
+                    recyclerView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
                 }
             } else {
-                ListAdapter adapter = new ListAdapter(new ArrayList<>(), this);
-                recyclerView.setAdapter(adapter);
+                recyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
             }
 
             //toCompletedListButton
@@ -223,14 +230,6 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
             Intent toCompletedItems = new Intent(this, CompletedItemsActivity.class);
             startActivity(toCompletedItems);
         });
-    }
-
-    public void setDescriptionLabel() {
-        if (!StringUtils.isEmpty(selectedList.description)) {
-            textViewDescription.setText(selectedList.description);
-        } else {
-            textViewDescription.setText("");
-        }
     }
 
     //updateItem

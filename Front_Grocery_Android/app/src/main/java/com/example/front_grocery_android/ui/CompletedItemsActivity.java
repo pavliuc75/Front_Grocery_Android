@@ -59,7 +59,6 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
             }
 
             //recyclerView
-            //TODO: check if empty and display label
             //TODO: display in reverse order
             if (selectedList != null) {
                 if (selectedList.items != null) {
@@ -73,10 +72,13 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
                             CompletedListAdapter adapter = new CompletedListAdapter(completedItems, this);
                             recyclerView.setAdapter(adapter);
                         } else {
-                            Intent toListActivity = new Intent(this, ListActivity.class);
-                            startActivity(toListActivity);
+                            startActivity(new Intent(this, ListActivity.class));
                         }
+                    } else {
+                        startActivity(new Intent(this, ListActivity.class));
                     }
+                } else {
+                    startActivity(new Intent(this, ListActivity.class));
                 }
             }
         });

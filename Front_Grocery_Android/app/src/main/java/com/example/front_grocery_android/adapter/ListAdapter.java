@@ -43,7 +43,13 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.ViewHolder holder, int position) {
         holder.textViewItemTitle.setText(items.get(position).name);
-        holder.textViewItemDescription.setText(getDescription(position));
+        String desc = getDescription(position);
+        if (StringUtils.isEmpty(desc)) {
+            holder.textViewItemDescription.setVisibility(View.GONE);
+        } else {
+            holder.textViewItemDescription.setText(desc);
+            holder.textViewItemDescription.setVisibility(View.VISIBLE);
+        }
         setFadeAnimation(holder.itemView);
     }
 
