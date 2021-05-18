@@ -171,4 +171,12 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
         updItem.isCompleted = false;
         viewModel.updateItem(updItem);
     }
+
+    //for correct back animation
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
+    }
 }

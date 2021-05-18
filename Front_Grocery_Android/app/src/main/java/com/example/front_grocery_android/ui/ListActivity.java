@@ -2,17 +2,22 @@ package com.example.front_grocery_android.ui;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActivityOptions;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
@@ -200,6 +205,11 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
         //listSwitch
         imageButtonSwitch.setOnClickListener(v -> {
+            //save shared preferences
+            SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+            editor.putInt("id", -1);
+            editor.apply();
+
             Intent toMain = new Intent(this, MainActivity.class);
             startActivity(toMain);
         });

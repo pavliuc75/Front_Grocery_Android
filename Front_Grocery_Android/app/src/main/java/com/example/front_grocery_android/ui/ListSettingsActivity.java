@@ -121,4 +121,13 @@ public class ListSettingsActivity extends AppCompatActivity {
             textViewListDescriptionSettings.setText(getString(R.string.no_description));
         }
     }
+
+    //for correct back animation
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
+    }
+
 }

@@ -15,7 +15,9 @@
         <activity
             android:name=".ui.CompletedItemsActivity"
             android:parentActivityName=".ui.ListActivity" />
-        <activity android:name=".ui.ListActivity" />
+        <activity
+            android:name=".ui.ListActivity"
+            android:parentActivityName=".ui.MainActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

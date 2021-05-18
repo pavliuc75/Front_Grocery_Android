@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         viewModel.init();
+
+        //read shared preferences
+
+        SharedPreferences preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        int localId = preferences.getInt("id", -1); //-1 is the default value.
+        if (localId != -1) {
+            viewModel.setSelectedListId(localId);
+            startActivity(new Intent(this, ListActivity.class));
+            finish();
+        }
+
         //TODO: auto start list activity with last list id from device memory
         //TODO: lock vertical
         //TODO: lock light mode
@@ -78,6 +90,12 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Intent toList = new Intent(this, ListActivity.class);
                 viewModel.setSelectedListId(Integer.parseInt(editTextListId.getText().toString()));
+
+                //save shared preferences
+                SharedPreferences.Editor editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
+                editor.putInt("id", viewModel.getSelectedListId());
+                editor.apply();
+
                 startActivity(toList);
             }
         });
