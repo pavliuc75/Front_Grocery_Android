@@ -38,4 +38,5 @@
     <string name="wipe_list_data">Limpe os dados da lista</string>
     <string name="title_completed_items">Itens Concluídos</string>
     <string name="title_settings">Definições</string>
+    <string name="no_internet">Sem ligação à Internet. Por favor, reconecte e reinicie o aplicativo</string>
 </resources>

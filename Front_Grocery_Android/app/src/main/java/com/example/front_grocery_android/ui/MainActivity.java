@@ -3,13 +3,18 @@ package com.example.front_grocery_android.ui;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,24 +53,29 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         viewModel.init();
 
-        //read shared preferences
-
-        SharedPreferences preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
-        int localId = preferences.getInt("id", -1); //-1 is the default value.
-        if (localId != -1) {
-            viewModel.setSelectedListId(localId);
-            startActivity(new Intent(this, ListActivity.class));
-            finish();
-        }
-        
-        //TODO: lock vertical
-        //TODO: lock light mode
-        //TODO: alert when no internet
-
         imageButtonHelp = findViewById(R.id.imageButtonHelp);
         buttonGoToList = findViewById(R.id.button_go_to_list);
         buttonGenerate = findViewById(R.id.button_generate);
         editTextListId = findViewById(R.id.editText_list_id);
+
+        //no internet
+        if (!isNetworkConnected()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.no_internet);
+            AlertDialog dialog = builder.create();
+            dialog.setOnCancelListener(dialog1 -> onBackPressed());
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+        }
+
+        //read shared preferences
+        SharedPreferences preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+        int localId = preferences.getInt("id", -1); //-1 is the default value.
+        if (localId != -1 && isNetworkConnected()) {
+            viewModel.setSelectedListId(localId);
+            startActivity(new Intent(this, ListActivity.class));
+            finish();
+        }
 
         //get listener
         viewModel.getLists().observe(this, lists -> {
@@ -124,5 +134,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }

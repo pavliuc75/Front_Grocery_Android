@@ -38,4 +38,5 @@
     <string name="wipe_list_data">Ștergeți datele listei</string>
     <string name="title_completed_items">Articole finalizate</string>
     <string name="title_settings">Setări</string>
+    <string name="no_internet">Fără conexiune internet. Vă rugăm să vă reconectați și să reporniți aplicația</string>
 </resources>
