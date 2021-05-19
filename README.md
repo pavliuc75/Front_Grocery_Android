@@ -1,4 +1,4 @@
-![Shopply logo](https://i.ibb.co/2nmJw4y/logo-big.png)
+![Shopply logo](https://i.ibb.co/Qbz0Zwf/logo-big.png)
 
 ## Shopply
 Shopply a basic grocery list app that will help you quickly form the list of items 
