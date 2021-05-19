@@ -35,7 +35,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO:testing
     //TODO:git readme
     //TODO:video
     //TODO:check github setting
