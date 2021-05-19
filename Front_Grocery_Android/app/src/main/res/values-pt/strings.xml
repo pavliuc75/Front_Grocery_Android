@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shopply</string>
-    <string name="welcome">Receber</string>
     <string name="enter_the_list_id_below">Insira o ID da lista abaixo</string>
     <string name="list_id">ID da lista</string>
     <string name="go_to_list">Vá para a lista</string>

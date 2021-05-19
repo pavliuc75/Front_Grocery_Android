@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Shopply</string>
-    <string name="welcome">Bun venit</string>
     <string name="enter_the_list_id_below">Introduceți ID-ul listei mai jos</string>
     <string name="list_id">ID listă</string>
     <string name="go_to_list">Accesați lista</string>

@@ -36,7 +36,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //TODO:testing
-    //TODO: prevent text view from going down
     //TODO:git readme
     //TODO:video
     //TODO:check github setting

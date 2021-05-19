@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Шоппли</string>
-    <string name="welcome">Привет</string>
     <string name="enter_the_list_id_below">Введите ID списка ниже</string>
     <string name="list_id">ID списка</string>
     <string name="go_to_list">Перейти к списку</string>
