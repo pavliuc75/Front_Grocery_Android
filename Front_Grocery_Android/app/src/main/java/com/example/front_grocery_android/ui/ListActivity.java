@@ -159,10 +159,11 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
         String listId = String.valueOf(viewModel.getSelectedListId());
         textViewListId.setText(listId);
 
-        //refresh (mby remove)
+        //refresh
         imageButtonRefresh.setOnClickListener(v -> {
             viewModel.init();
-            this.recreate();
+            adapter.notifyDataSetChanged();
+            //this.recreate();
         });
 
         //list sort by

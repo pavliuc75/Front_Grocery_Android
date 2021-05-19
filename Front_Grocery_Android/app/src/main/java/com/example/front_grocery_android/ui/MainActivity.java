@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.front_grocery_android.R;
@@ -35,15 +36,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO:git readme
     //TODO:video
-    //TODO:check github setting
+    //TODO:include apk
     private MainActivityViewModel viewModel;
     private ImageButton imageButtonHelp;
     private Button buttonGoToList;
     private Button buttonGenerate;
+    private ImageView imageViewLogo;
     private EditText editTextListId;
     private Lists listsScoped;
+    private int counter;
     SharedPreferences.Editor editor;
     SharedPreferences preferences;
 
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         buttonGoToList = findViewById(R.id.button_go_to_list);
         buttonGenerate = findViewById(R.id.button_generate);
         editTextListId = findViewById(R.id.editText_list_id);
+        imageViewLogo = findViewById(R.id.image_view_logo);
         preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
         editor = getSharedPreferences("MyPrefsFile", MODE_PRIVATE).edit();
 
@@ -144,6 +147,22 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, R.string.secret_text, Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        //info hidden button
+        imageViewLogo.setOnClickListener(v -> {
+            counter++;
+            if (counter == 9) {
+                counter = 0;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.version_info);
+                builder.setMessage(R.string.developer_info);
+                builder.setPositiveButton(R.string.close_alert_text, (dialog, id) -> {
+                });
+                AlertDialog dialog = builder.create();
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.show();
             }
         });
     }

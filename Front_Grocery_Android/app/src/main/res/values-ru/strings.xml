@@ -43,4 +43,6 @@
     <string name="oldest_first">Старейший первый</string>
     <string name="a_z">А - Я</string>
     <string name="z_a">Я - А</string>
+    <string name="version_info">Версия 1.0.2</string>
+    <string name="developer_info">Разработчик: Николай Павлюк</string>
 </resources>
