@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.front_grocery_android.models.List;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -33,6 +35,8 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
     private List selectedList;
     private CompletedItemsActivityViewModel viewModel;
     private ArrayList<Item> completedItems;
+    private SharedPreferences preferences;
+    private String sortByMode;
 
 
     @Override
@@ -44,6 +48,11 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
         recyclerView = findViewById(R.id.recycler_view_completed_list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.hasFixedSize();
+        sortByMode = "";
+        preferences = getSharedPreferences("MyPrefsFile", MODE_PRIVATE);
+
+        //sortBy preferences
+        sortByMode = preferences.getString("sortBy", "a_z"); //a_z is the default value
 
         //Toolbar
         toolbar = findViewById(R.id.completed_items_toolbar);
@@ -68,6 +77,15 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
                                 completedItems.add(selectedList.items.get(i));
                         }
                         if (!completedItems.isEmpty()) {
+                            if (sortByMode.equals("a_z")) {
+                                Collections.sort(completedItems, Item.AZComparator);
+                            } else if (sortByMode.equals("z_a")) {
+                                Collections.sort(completedItems, Item.ZAComparator);
+                            } else if (sortByMode.equals("new_old")) {
+                                Collections.sort(completedItems, Item.NewOldComparator);
+                            } else if (sortByMode.equals("old_new")) {
+                                Collections.sort(completedItems, Item.OldNewComparator);
+                            }
                             CompletedListAdapter adapter = new CompletedListAdapter(completedItems, this);
                             recyclerView.setAdapter(adapter);
                         } else {
