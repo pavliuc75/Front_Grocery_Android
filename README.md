@@ -4,7 +4,7 @@
 Shopply a basic grocery list app that will help you quickly form the list of items 
 that you want to buy at a grocery store as well as to easily share it to other people. 
 The motivation behind this app is to simplify the process of giving access to the list
-to other people.
+to other users.
 Each list is automatically assigned a unique 4 digits code that can be shared with others
 in seconds. 
 Other people can simply input this code into the app and get access to the list. The user
