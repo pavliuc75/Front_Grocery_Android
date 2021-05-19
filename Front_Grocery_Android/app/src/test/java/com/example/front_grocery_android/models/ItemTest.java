@@ -57,24 +57,6 @@ class ItemTest {
     }
 
     @Test
-    public void sortNewOld() {
-        Item a = new Item();
-        a.id = 1;
-        Item b = new Item();
-        b.id = 2;
-        Item c = new Item();
-        c.id = 3;
-        list.add(c);
-        list.add(b);
-        list.add(a);
-        Collections.sort(list, Item.NewOldComparator);
-        expectedList.add(a);
-        expectedList.add(b);
-        expectedList.add(c);
-        assertArrayEquals(list.toArray(), expectedList.toArray());
-    }
-
-    @Test
     public void sortOldNew() {
         Item a = new Item();
         a.id = 1;
@@ -82,10 +64,28 @@ class ItemTest {
         b.id = 2;
         Item c = new Item();
         c.id = 3;
+        list.add(c);
+        list.add(b);
+        list.add(a);
+        Collections.sort(list, Item.OldNewComparator);
+        expectedList.add(a);
+        expectedList.add(b);
+        expectedList.add(c);
+        assertArrayEquals(list.toArray(), expectedList.toArray());
+    }
+
+    @Test
+    public void sortNewOld() {
+        Item a = new Item();
+        a.id = 1;
+        Item b = new Item();
+        b.id = 2;
+        Item c = new Item();
+        c.id = 3;
         list.add(a);
         list.add(b);
         list.add(c);
-        Collections.sort(list, Item.OldNewComparator);
+        Collections.sort(list, Item.NewOldComparator);
         expectedList.add(c);
         expectedList.add(b);
         expectedList.add(a);

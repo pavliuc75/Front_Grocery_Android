@@ -15,8 +15,8 @@ public class Item {
 
     public static Comparator<Item> ZAComparator = (o1, o2) -> o2.name.compareTo(o1.name);
 
-    public static Comparator<Item> NewOldComparator = (o1, o2) -> o1.id - o2.id;
+    public static Comparator<Item> NewOldComparator = (o1, o2) -> o2.id - o1.id;
 
-    public static Comparator<Item> OldNewComparator = (o1, o2) -> o2.id - o1.id;
+    public static Comparator<Item> OldNewComparator = (o1, o2) -> o1.id - o2.id;
 
 }
