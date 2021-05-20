@@ -37,12 +37,12 @@
     <string name="wipe_list_data">Удалить данные</string>
     <string name="title_completed_items">Завершенные предметы</string>
     <string name="title_settings">Настройки</string>
-    <string name="no_internet">Подключение к Интернету отсутствует. Пожалуйста, повторно подключитесь и перезапустите приложение</string>
+    <string name="no_internet">Подключение к Интернету отсутствует. Пожалуйста, повторно подключитесь и перезапустите приложение.</string>
     <string name="secret_text">Вы дошли до конца. Попробуйте существующий список от 1000 до 9999</string>
     <string name="newest_first">Новички вперед</string>
     <string name="oldest_first">Старейший первый</string>
     <string name="a_z">А - Я</string>
     <string name="z_a">Я - А</string>
-    <string name="version_info">Версия 1.0.2</string>
+    <string name="version_info">Версия 1.0.3</string>
     <string name="developer_info">Разработчик: Николай Павлюк</string>
 </resources>
