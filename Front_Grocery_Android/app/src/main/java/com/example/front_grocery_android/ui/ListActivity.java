@@ -369,7 +369,8 @@ public class ListActivity extends AppCompatActivity implements ListAdapter.OnLis
 
         editTextAddItemName.setText(updItem.name);
         editTextAddItemDetails.setText(updItem.details);
-        editTextAddItemWeight.setText(Double.toString(updItem.weight));
+        if (updItem.weight != 0)
+            editTextAddItemWeight.setText(Double.toString(updItem.weight));
 
         builder.setPositiveButton(R.string.save,
                 (dialog, which) -> {

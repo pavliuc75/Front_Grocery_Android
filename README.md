@@ -8,7 +8,7 @@ to other users.
 Each list is automatically assigned a unique 4 digits code that can be shared with others
 in seconds. 
 Other people can simply input this code into the app and get access to the list. The user
-also to generate his own list.
+can also generate his own list.
 
 ### MoSCoW:
 

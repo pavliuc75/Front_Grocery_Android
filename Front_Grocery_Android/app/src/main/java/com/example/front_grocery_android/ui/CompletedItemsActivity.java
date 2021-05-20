@@ -148,7 +148,8 @@ public class CompletedItemsActivity extends AppCompatActivity implements Complet
 
         editTextAddItemName.setText(updItem.name);
         editTextAddItemDetails.setText(updItem.details);
-        editTextAddItemWeight.setText(Double.toString(updItem.weight));
+        if (updItem.weight != 0)
+            editTextAddItemWeight.setText(Double.toString(updItem.weight));
 
         builder.setPositiveButton(R.string.save,
                 (dialog, which) -> {
