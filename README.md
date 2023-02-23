@@ -1,7 +1,8 @@
 ![Shopply logo](https://i.ibb.co/Qbz0Zwf/logo-big.png)
 
 ## Shopply
-[Presentation video](https://youtu.be/PjMaAzrKoEo)
+[Presentation video](https://youtu.be/PjMaAzrKoEo)<br/>
+Available on [Google Play](https://play.google.com/store/apps/details?id=com.shopply.front_grocery_android&hl=en&gl=US)
 ######
 Shopply a basic grocery list app that will help you quickly form the list of items 
 that you want to buy at a grocery store as well as to easily share it to other people. 
